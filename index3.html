@@ -156,26 +156,6 @@
             box-shadow: 0 10px 25px rgba(74, 157, 156, 0.3);
         }
 
-        .keys-info {
-            background: rgba(74, 157, 156, 0.08);
-            padding: 15px;
-            border-radius: 12px;
-            border: 1px solid rgba(74, 157, 156, 0.2);
-            margin-bottom: 20px;
-            font-size: 13px;
-            line-height: 1.6;
-        }
-
-        .keys-info strong {
-            color: #4a9d9c;
-            display: block;
-            margin-bottom: 8px;
-        }
-
-        .keys-info div {
-            margin-bottom: 4px;
-        }
-
         .error-message {
             background: rgba(239, 68, 68, 0.1);
             color: #ef4444;
@@ -709,24 +689,15 @@
             <h2 class="login-title">Mateus Midas Trading Terminal</h2>
             <p class="login-subtitle">Welcome to Mateus Midas — your personal AI-powered trading assistant</p>
 
-            <div class="keys-info">
-                <strong>Available VIP Keys:</strong>
-                <div>MAT400 — 1 hour access</div>
-                <div>MAT500 — 2 hours access</div>
-                <div>MAT600 — 3 hours access</div>
-                <div>MAT800 — 4 hours access</div>
-                <div>MAT1000 — 5 hours access</div>
-            </div>
-
             <form id="loginForm">
                 <div class="input-group">
                     <label class="input-label">VIP Access Key</label>
-                    <input type="text" id="accessKey" class="input-field" placeholder="e.g., MAT400" required>
+                    <input type="text" id="accessKey" class="input-field" required>
                 </div>
 
                 <div class="input-group">
                     <label class="input-label">How can I address you?</label>
-                    <input type="text" id="userName" class="input-field" placeholder="Your name (optional)">
+                    <input type="text" id="userName" class="input-field">
                 </div>
 
                 <button type="submit" class="login-button">Enter Trading Terminal</button>
@@ -919,28 +890,9 @@ const REGIONAL_PHRASES = [
     {text: "Крупный австралийский банк NAB размещает защитные ордера на продажу", pairs: ['AUD/CAD OTC', 'GBP/AUD'], direction: 'UP'},
     {text: "Данные по занятости в Австралии значительно превзошли прогнозы", pairs: ['AUD/CAD OTC', 'GBP/AUD OTC'], direction: 'DOWN'},
     {text: "Китай снижает импорт угля, давление на австралийский доллар", pairs: ['AUD/CAD OTC', 'GBP/AUD OTC'], direction: 'UP'},
-    {text: "Австралийский товарный экспорт показывает снижение объёмов", pairs: ['AUD/CAD OTC', 'GBP/AUD'], direction: 'UP'},
-    {text: "Сиднейская сессция открылась с крупными покупками австралийца", pairs: ['AUD/CAD OTC', 'GBP/AUD OTC'], direction: 'DOWN'},
-    {text: "Сектор недвижимости Австралии демонстрирует признаки замедления", pairs: ['AUD/CAD OTC', 'GBP/AUD'], direction: 'UP'},
-    {text: "Крупный австралийский майнинговый гигант объявил о рекордной выручке", pairs: ['AUD/CAD OTC', 'GBP/AUD OTC'], direction: 'DOWN'},
-    {text: "Рост ВВП Китая выше ожиданий, положительно для AUD", pairs: ['AUD/CAD OTC', 'GBP/AUD OTC'], direction: 'DOWN'},
-    {text: "Резервный банк Новой Зеландии сохраняет жёсткую риторику, киви укрепляется", pairs: ['EUR/NZD OTC', 'NZD/USD'], direction: 'DOWN'},
-    {text: "Данные по молочным аукционам Новой Зеландии показали рост цен", pairs: ['EUR/NZD OTC', 'NZD/USD'], direction: 'DOWN'},
-    {text: "Новозеландский экспорт мяса столкнулся с торговыми барьерами", pairs: ['EUR/NZD OTC', 'NZD/USD'], direction: 'UP'},
-    {text: "Вулканическая активность в регионе создаёт экономические риски", pairs: ['EUR/NZD OTC', 'NZD/USD'], direction: 'UP'},
-    {text: "Крупный новозеландский фонд накапливает иностранную валюту", pairs: ['EUR/NZD OTC', 'NZD/USD'], direction: 'UP'},
-    {text: "Торговый баланс Новой Зеландии улучшился благодаря туризму", pairs: ['EUR/NZD OTC', 'NZD/USD'], direction: 'DOWN'},
-    {text: "РБНЗ сигнализирует о возможном смягчении политики", pairs: ['EUR/NZD OTC', 'NZD/USD'], direction: 'UP'},
-    {text: "Сельскохозяйственный сектор Новой Зеландии отчитался о рекордном урожае", pairs: ['EUR/NZD OTC', 'NZD/USD'], direction: 'DOWN'},
-    {text: "Укрепление китайского юаня положительно сказывается на NZD", pairs: ['EUR/NZD OTC', 'NZD/USD'], direction: 'DOWN'},
-    {text: "Новозеландский доллар теряет позиции на фоне снижения сырьевых цен", pairs: ['EUR/NZD OTC', 'NZD/USD'], direction: 'UP'},
-    {text: "Азиатская сессия открылась с повышенной активностью", pairs: ['USD/JPY OTC', 'EUR/JPY OTC', 'AUD/CAD OTC', 'GBP/AUD OTC'], direction: null},
-    {text: "Токийская биржа фиксирует крупные блоковые сделки", pairs: ['USD/JPY OTC', 'EUR/JPY OTC', 'EUR/JPY'], direction: null},
-    {text: "Азиатские рынки акций демонстрируют уверенный рост", pairs: ['USD/JPY OTC', 'AUD/CAD OTC', 'EUR/NZD OTC'], direction: null},
-    {text: "Китайские инвесторы активно выходят на валютный рынок", pairs: ['AUD/CAD OTC', 'EUR/NZD OTC', 'NZD/USD'], direction: null},
 ];
 
-// Фразы входа (39 шт)
+// Фразы входа
 const ENTRY_PHRASES = [
     "Точка входа идентифицирована. Формирую торговый сигнал...",
     "Оптимальный момент входа найден. Готовлю рекомендацию...",
@@ -952,38 +904,9 @@ const ENTRY_PHRASES = [
     "Модель прогнозирования выдала сильный сигнал...",
     "Алгоритм обнаружил высоковероятную установку...",
     "Рыночные условия созрели для входа в позицию...",
-    "Корреляция индикаторов подтверждает вход...",
-    "Технический сетап сформирован. Выдаю сигнал...",
-    "Анализ завершён. Точка входа подтверждена...",
-    "Волновая структура указывает на направление...",
-    "Кластерный анализ выявил зону интереса...",
-    "Импульсная волна подтверждает направление сделки...",
-    "Пробой ключевого уровня зафиксирован...",
-    "Ретест уровня поддержки/сопротивления успешен...",
-    "Дивергенция на осцилляторах подтверждает вход...",
-    "Объёмный профиль указывает на сильную зону...",
-    "Ликвидность собрана, движение начинается...",
-    "Фибоначчи-уровни совпали с зоной спроса...",
-    "Баланс цены и объёма смещается в нужном направлении...",
-    "Скрытая дивергенция подтверждает продолжение тренда...",
-    "Пин-бар на дневном таймфрейме даёт сигнал...",
-    "Пробой линии тренда подтверждён объёмами...",
-    "Медианная линия канала достигнута, отскок вероятен...",
-    "Формация флага завершена, продолжение движения...",
-    "RSI вышел из зоны перекупленности/перепроданности...",
-    "MACD дал пересечение в направлении тренда...",
-    "Стохастик подтвердил разворот в зоне экстремума...",
-    "Bolinger Bands сжались, готовится импульс...",
-    "Пробой POC (Point of Control) на объёмном профиле...",
-    "VWAP пробой подтверждает направление институционалов...",
-    "Тепловая карта ликвидности показывает цель движения...",
-    "Крупный ордер в стакане подтверждает направление...",
-    "Анализ Footprint выявил поглощение лимитных заявок...",
-    "Дельта объёмов указывает на доминирование покупателей/продавцов...",
-    "Кумулятивная дельта подтверждает накопление позиций...",
 ];
 
-// Фразы результата (30 шт)
+// Фразы результата
 const RESULT_PHRASES = [
     "Сделка закрыта. Анализирую результат...",
     "Позиция закрыта. Обновляю статистику...",
@@ -995,42 +918,13 @@ const RESULT_PHRASES = [
     "Торговая операция завершена. Сканирую новые возможности...",
     "Результат сделки записан. Анализирую рынок далее...",
     "Сделка закрыта. Корректирую алгоритмы...",
-    "Исполнение подтверждено. Перезагружаю аналитические модули...",
-    "Торговый сигнал отработан. Готовлюсь к следующему циклу...",
-    "Сделка завершена. Проверяю корреляции...",
-    "Позиция закрыта. Рынок готов к новому движению...",
-    "Результат зафиксирован. Точность модели обновлена...",
-    "Сделка отработана. Ищу следующую точку входа...",
-    "Торговый цикл завершён успешно. Продолжаю мониторинг...",
-    "Сделка закрыта. Алгоритм адаптируется к новым данным...",
-    "Позиция закрыта. Анализирую изменение волатильности...",
-    "Результат записан. Перехожу к следующему сканированию...",
-    "Сделка завершена. Обновляю уровни поддержки и сопротивления...",
-    "Торговая операция завершена. Проверяю межрыночные корреляции...",
-    "Сигнал отработан. Пересчитываю вероятностные модели...",
-    "Сделка закрыта. Рынок консолидируется после движения...",
-    "Позиция закрыта по таймеру. Готовлю следующий анализ...",
-    "Торговый цикл завершён. Загружаю свежие рыночные данные...",
-    "Сделка отработана. Анализирую реакцию рынка...",
-    "Результат зафиксирован. Модель обучения обновлена...",
-    "Сделка завершена. Проверяю ликвидность для следующего входа...",
-    "Позиция закрыта. Перехожу к сканированию новых возможностей...",
 ];
 
-// Все валютные пары
-const ASSETS = [
-    'EUR/USD OTC','EUR/AUD OTC','EUR/CAD OTC','EUR/CHF OTC','EUR/GBP OTC','EUR/JPY OTC','EUR/NZD OTC',
-    'GBP/AUD OTC','AUD/CAD OTC','XAU/USD OTC','USD/SEK OTC','USD/JPY OTC','CAD/CHF OTC',
-    'GBP/AUD','GBP/CAD','GBP/CHF','GBP/JPY','GBP/USD','NZD/USD','USD/CAD','USD/CHF',
-    'SOL/USDT','XAU/USD','EUR/JPY','USD/SEK','USD/JPY','CAD/CHF'
-];
+// ==========================================
+// ОСНОВНАЯ ЛОГИКA AURA TRADE TERMINAL
+// ==========================================
 
-
-        // ==========================================
-        // ОСНОВНАЯ ЛОГИКA AURA TRADE TERMINAL
-        // ==========================================
-
-        const ACCESS_KEYS = {
+const ACCESS_KEYS = {
             'MAT400': { limit: 1 * 60 * 60 * 1000, name: 'MAT400 (1 hour)', hours: 1 },
             'MAT500': { limit: 2 * 60 * 60 * 1000, name: 'MAT500 (2 hours)', hours: 2 },
             'MAT600': { limit: 3 * 60 * 60 * 1000, name: 'MAT600 (3 hours)', hours: 3 },
@@ -1118,16 +1012,7 @@ const ASSETS = [
             return String(hours).padStart(2, '0') + ':' + String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0');
         }
 
-        // Key usage check
-        function isKeyUsed(key) {
-            return localStorage.getItem('aura_key_used_' + key) === 'true';
-        }
-
-        function markKeyAsUsed(key) {
-            localStorage.setItem('aura_key_used_' + key, 'true');
-        }
-
-        // Get random phrase avoiding recent repeats
+        // Get random phrase
         function getRandomPhrase(phrasesArray) {
             var idx = random(0, phrasesArray.length - 1);
             return phrasesArray[idx];
@@ -1402,7 +1287,7 @@ const ASSETS = [
                 updateSessionInfo();
                 initializeChat();
             } else {
-                errorDiv.textContent = 'Invalid access key. Use one of: MAT400, MAT500, MAT600, MAT800, MAT1000';
+                errorDiv.textContent = 'Invalid access key.';
                 errorDiv.style.display = 'block';
             }
         }
