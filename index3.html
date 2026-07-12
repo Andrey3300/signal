@@ -1,0 +1,1460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mateus Midas Trading Terminal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+            -webkit-font-smoothing: antialiased;
+            /* Фиксируем высоту страницы, чтобы она не растягивалась */
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        body.light {
+            background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 50%, #bcccdc 100%);
+            color: #1a202c;
+        }
+
+        body.dark {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            color: #f1f5f9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 6px 10px 4px;
+            height: 100vh; /* Изменено с min-height для жесткой фиксации окна */
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        /* Login Screen */
+        .login-screen {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            width: 100%;
+            overflow-y: auto; /* Позволяем логин-экрану скроллиться на мелких устройствах */
+        }
+
+        .login-box {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            padding: 50px 40px;
+            border-radius: 24px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.1);
+            max-width: 450px;
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            margin: auto; /* Центрирование */
+        }
+
+        body.dark .login-box {
+            background: rgba(30, 41, 59, 0.7);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .login-logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #4a9d9c 0%, #5eb3b3 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            font-weight: bold;
+            color: white;
+            margin: 0 auto 20px;
+        }
+
+        .login-title {
+            font-size: 28px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .login-subtitle {
+            text-align: center;
+            opacity: 0.7;
+            margin-bottom: 40px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        .input-label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            opacity: 0.8;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid rgba(74, 157, 156, 0.3);
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s;
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        body.dark .input-field {
+            background: rgba(15, 20, 25, 0.5);
+            color: #e8e8e8;
+            border-color: rgba(74, 157, 156, 0.3);
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #4a9d9c;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        body.dark .input-field:focus {
+            background: rgba(15, 20, 25, 0.8);
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #4a9d9c 0%, #5eb3b3 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .login-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(74, 157, 156, 0.3);
+        }
+
+        .keys-info {
+            background: rgba(74, 157, 156, 0.08);
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid rgba(74, 157, 156, 0.2);
+            margin-bottom: 20px;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .keys-info strong {
+            color: #4a9d9c;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .keys-info div {
+            margin-bottom: 4px;
+        }
+
+        .error-message {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+            font-size: 14px;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .success-message {
+            background: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+            font-size: 14px;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        /* Main Terminal */
+        .terminal-screen {
+            display: none;
+            flex-direction: column;
+            flex: 1;
+            min-height: 0;
+            height: 100%;
+        }
+
+        .terminal-screen.active {
+            display: flex;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            padding: 12px 18px;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            flex-shrink: 0; /* Шапка не должна сжиматься */
+        }
+
+        body.dark .header {
+            background: rgba(30, 41, 59, 0.6);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #4a9d9c 0%, #5eb3b3 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .logo-text h1 {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .logo-text p {
+            font-size: 14px;
+            opacity: 0.7;
+        }
+
+        .theme-toggle {
+            display: flex;
+            gap: 10px;
+            background: rgba(0, 0, 0, 0.05);
+            padding: 5px;
+            border-radius: 10px;
+        }
+
+        body.dark .theme-toggle {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .theme-btn {
+            padding: 8px 16px;
+            border: none;
+            background: transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .theme-btn.active {
+            background: #4a9d9c;
+            color: white;
+        }
+
+        .main-content {
+            display: flex;
+            gap: 12px;
+            flex: 1;
+            min-height: 0;
+            overflow: hidden; /* Не даем растягиваться */
+        }
+
+        .chat-section, .info-panel {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            padding: 15px;
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        body.dark .chat-section,
+        body.dark .info-panel {
+            background: rgba(30, 41, 59, 0.6);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .chat-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+            overflow: hidden; /* Чат секция не растягивается */
+        }
+
+        .info-panel {
+            width: 320px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+            overflow-y: auto;
+        }
+
+        .chat-messages {
+            flex: 1;
+            min-height: 0;
+            overflow-y: auto; /* Внутренний скролл только для логов */
+            margin-bottom: 10px;
+            padding-right: 8px;
+        }
+
+        .message {
+            margin-bottom: 10px;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message.system {
+            font-weight: 600;
+            opacity: 0.8;
+            font-size: 15px;
+        }
+
+        .message.bot {
+            background: rgba(74, 157, 156, 0.08);
+            padding: 8px 12px;
+            border-radius: 14px 14px 14px 4px;
+            border-left: 3px solid #4a9d9c;
+            max-width: 85%;
+            font-size: 14px;
+        }
+
+        .message.bot.strong-signal {
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.15) 0%, rgba(245, 158, 11, 0.15) 100%);
+            border-left: 3px solid #f59e0b;
+            box-shadow: 0 0 15px rgba(251, 191, 36, 0.2);
+        }
+
+        .message.user {
+            background: linear-gradient(135deg, #4a9d9c 0%, #5eb3b3 100%);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 14px 14px 4px 14px;
+            margin-left: auto;
+            margin-right: 0;
+            max-width: 70%;
+            box-shadow: 0 2px 8px rgba(74, 157, 156, 0.3);
+            font-size: 14px;
+        }
+
+        .signal-info {
+            margin: 8px 0;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        body.dark .signal-info {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .signal-pair {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+
+        .signal-direction {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 6px 0;
+        }
+
+        .signal-direction.up {
+            color: #10b981;
+        }
+
+        .signal-direction.down {
+            color: #ef4444;
+        }
+
+        .timer {
+            font-size: 26px;
+            font-weight: bold;
+            text-align: center;
+            margin: 8px 0;
+            color: #4a9d9c;
+            font-family: 'Courier New', monospace;
+        }
+
+        .timer.urgent {
+            color: #ef4444;
+            animation: pulse-timer 1s infinite;
+        }
+
+        @keyframes pulse-timer {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .renew-button {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 15px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .renew-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(239, 68, 68, 0.4);
+        }
+
+        .platform-badge {
+            background: linear-gradient(135deg, #4a9d9c 0%, #5eb3b3 100%);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 13px;
+            box-shadow: 0 4px 16px rgba(74, 157, 156, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .connection-list {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .connection-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            padding: 3px 0;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #6b7280;
+        }
+
+        .status-dot.active {
+            background: #10b981;
+            box-shadow: 0 0 8px rgba(16, 185, 129, 0.6);
+            animation: pulse-dot 2s infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .system-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+        }
+
+        .stat-label {
+            opacity: 0.7;
+        }
+
+        .stat-value {
+            font-weight: 600;
+            color: #4a9d9c;
+            font-family: 'Courier New', monospace;
+        }
+
+        .info-section {
+            margin-bottom: 10px;
+        }
+
+        .info-section h3 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            opacity: 0.7;
+        }
+
+        .info-content {
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .info-divider {
+            height: 1px;
+            background: rgba(0, 0, 0, 0.1);
+            margin: 10px 0;
+        }
+
+        body.dark .info-divider {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 6px;
+            opacity: 0.6;
+            font-size: 12px;
+            flex-shrink: 0; /* Подвал зафиксирован */
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        .status-badge.vip {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .status-badge.active {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .vip-timer {
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            color: #10b981;
+            margin-top: 5px;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #4a9d9c;
+            border-radius: 10px;
+        }
+
+        @media (max-width: 968px) {
+            .main-content {
+                flex-direction: column;
+                overflow-y: auto; /* На планшетах разрешаем скролл всей панели */
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+                margin-bottom: 10px;
+                padding: 10px 14px;
+            }
+
+            .logo-section {
+                flex-direction: row;
+                gap: 10px;
+            }
+
+            .chat-messages {
+                flex: 1;
+                min-height: 200px;
+            }
+
+            .login-box {
+                margin: 15px;
+                padding: 35px 25px;
+            }
+
+            .info-panel {
+                width: auto;
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 10px;
+                padding: 12px;
+                overflow: visible;
+            }
+
+            .info-section {
+                margin-bottom: 6px;
+                flex: 1;
+                min-width: 140px;
+            }
+
+            .info-divider {
+                display: none;
+            }
+
+            .footer {
+                margin-top: 6px;
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .logo-text h1 {
+                font-size: 18px;
+            }
+
+            .logo-text p {
+                font-size: 12px;
+            }
+
+            .logo {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+
+            .login-title {
+                font-size: 22px;
+            }
+
+            .theme-toggle {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .chat-messages {
+                min-height: 160px;
+            }
+
+            .container {
+                padding: 6px;
+            }
+
+            .info-panel {
+                flex-direction: column;
+                gap: 6px;
+            }
+
+            .message.bot, .message.user {
+                max-width: 92%;
+                padding: 6px 10px;
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body class="dark">
+    <div class="login-screen" id="loginScreen">
+        <div class="login-box">
+            <div class="login-logo">MM</div>
+            <h2 class="login-title">Mateus Midas Trading Terminal</h2>
+            <p class="login-subtitle">Welcome to Mateus Midas — your personal AI-powered trading assistant</p>
+
+            <div class="keys-info">
+                <strong>Available VIP Keys:</strong>
+                <div>MAT400 — 1 hour access</div>
+                <div>MAT500 — 2 hours access</div>
+                <div>MAT600 — 3 hours access</div>
+                <div>MAT800 — 4 hours access</div>
+                <div>MAT1000 — 5 hours access</div>
+            </div>
+
+            <form id="loginForm">
+                <div class="input-group">
+                    <label class="input-label">VIP Access Key</label>
+                    <input type="text" id="accessKey" class="input-field" placeholder="e.g., MAT400" required>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">How can I address you?</label>
+                    <input type="text" id="userName" class="input-field" placeholder="Your name (optional)">
+                </div>
+
+                <button type="submit" class="login-button">Enter Trading Terminal</button>
+
+                <div id="errorMessage" style="display: none;" class="error-message"></div>
+                <div id="successMessage" style="display: none;" class="success-message"></div>
+            </form>
+        </div>
+    </div>
+
+    <div class="terminal-screen container" id="terminalScreen">
+        <div class="header">
+            <div class="logo-section">
+                <div class="logo">MM</div>
+                <div class="logo-text">
+                    <h1>Mateus Midas Trading Terminal</h1>
+                    <p>Premium trading assistant</p>
+                </div>
+            </div>
+            <div class="theme-toggle">
+                <button class="theme-btn" id="lightBtn">Light</button>
+                <button class="theme-btn active" id="darkBtn">Dark</button>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="chat-section">
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message system">Initializing neural core...</div>
+                </div>
+
+                <button class="renew-button" id="renewButton" style="display: none;" onclick="renewKey()">Enter New Key</button>
+
+                <div class="footer">
+                    Bot created by trader Mateus Midas. All rights reserved.
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-section">
+                    <h3>Session</h3>
+                    <div class="info-content">
+                        <div>Name: <span id="sessionName">—</span></div>
+                        <div>Access: <span id="sessionAccess">—</span></div>
+                        <div>Signals: <span id="sessionSignals">—</span></div>
+                        <div id="vipStatus"></div>
+                    </div>
+                </div>
+
+                <div class="info-divider"></div>
+
+                <div class="info-section">
+                    <h3>Active</h3>
+                    <div class="info-content" id="activeInfo">—</div>
+                </div>
+
+                <div class="info-divider"></div>
+
+                <div class="info-section">
+                    <h3>Status</h3>
+                    <div class="info-content" id="statusInfo">Idle</div>
+                </div>
+
+                <div class="info-divider"></div>
+
+                <div class="info-section">
+                    <h3>Platform</h3>
+                    <div class="platform-badge">Stockity Optimized</div>
+                </div>
+
+                <div class="info-divider"></div>
+
+                <div class="info-section">
+                    <h3>Data Sources</h3>
+                    <div class="connection-list">
+                        <div class="connection-item">
+                            <span class="status-dot active"></span>
+                            <span>NYSE</span>
+                        </div>
+                        <div class="connection-item">
+                            <span class="status-dot active"></span>
+                            <span>NASDAQ</span>
+                        </div>
+                        <div class="connection-item">
+                            <span class="status-dot active"></span>
+                            <span>FOREX</span>
+                        </div>
+                        <div class="connection-item">
+                            <span class="status-dot active"></span>
+                            <span>LSE</span>
+                        </div>
+                        <div class="connection-item">
+                            <span class="status-dot active"></span>
+                            <span>BINANCE</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-divider"></div>
+
+                <div class="info-section">
+                    <h3>System Status</h3>
+                    <div class="system-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Uptime</span>
+                            <span class="stat-value" id="uptime">00:00:00</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Accuracy</span>
+                            <span class="stat-value" id="accuracy">87%</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Latency</span>
+                            <span class="stat-value" id="latency">12ms</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+// ==========================================
+// БАЗА ФРАЗ AURA TRADE TERMINAL
+// ==========================================
+
+// Анализирующие фразы (40 шт)
+const ANALYZING_PHRASES = [
+    "Сканирую все таймфреймы на предмет точки входа...",
+    "Анализирую ликвидность рынка в реальном времени...",
+    "Проверяю корреляции между основными активами...",
+    "Загружаю исторические данные за последние 24 часа...",
+    "Применяю алгоритмы машинного обучения для прогноза...",
+    "Анализирую объёмы торгов на крупных биржах...",
+    "Оцениваю силу текущего тренда...",
+    "Перекрёстная проверка данных с 5 источников...",
+    "Мониторинг крупных лимитных ордеров...",
+    "Анализирую волатильность рынка...",
+    "Проверяю уровни поддержки и сопротивления...",
+    "Сканирую паттерны свечного анализа...",
+    "Загружаю данные фьючерсных контрактов...",
+    "Анализирую открытый интерес по деривативам...",
+    "Проверяю макроэкономические индикаторы...",
+    "Мониторинг отчётов CFTC по позициям трейдеров...",
+    "Анализирую движение капитала между секторами...",
+    "Проверяю импульсные уровни RSI и MACD...",
+    "Сканирую арбитражные возможности...",
+    "Анализирую спред между спотом и фьючерсами...",
+    "Загружаю данные по межбанковским курсам...",
+    "Проверяю активность институциональных трейдеров...",
+    "Анализирую новостной фон и сентимент...",
+    "Мониторинг денежных потоков в безопасные активы...",
+    "Сканирую breakout-уровни на всех парах...",
+    "Анализирую циклические паттерны рынка...",
+    "Проверяю уровни маржинальных залогов...",
+    "Загружаю данные экономического календаря...",
+    "Анализирую корреляцию с фондовыми индексами...",
+    "Мониторинг активности маркет-мейкеров...",
+    "Проверяю ликвидность стакана заявок...",
+    "Анализирую динамику долларового индекса DXY...",
+    "Сканирую аномалии в торговых объёмах...",
+    "Проверяю уровни стоп-лоссов крупных игроков...",
+    "Анализирую сезонные факторы валютных пар...",
+    "Загружаю данные по международным резервам...",
+    "Мониторинг изменений в денежно-кредитной политике...",
+    "Анализирую цепочку поставок и товарные потоки...",
+    "Проверяю активность хедж-фондов в реальном времени...",
+    "Синхронизирую данные со всеми подключенными биржами...",
+];
+
+// Региональные фразы с привязкой к валютным парам
+const REGIONAL_PHRASES = [
+    {text: "Токийская фондовая биржа открылась с ростом, йена реагирует на отток капитала", pairs: ['USD/JPY OTC', 'EUR/JPY OTC', 'GBP/JPY', 'EUR/JPY'], direction: 'UP'},
+    {text: "Банк Японии рассматривает изменение политики отрицательных ставок, йена укрепляется", pairs: ['USD/JPY OTC', 'EUR/JPY OTC', 'GBP/JPY'], direction: 'DOWN'},
+    {text: "Крупный японский экспортёр размещает хедж-ордера на продажу йены", pairs: ['USD/JPY OTC', 'EUR/JPY OTC'], direction: 'UP'},
+    {text: "Инвестиционный фонд из Осаки накапливает длинные позиции по йене", pairs: ['USD/JPY OTC', 'GBP/JPY'], direction: 'DOWN'},
+    {text: "Отчёт по валовому внутреннему продукту Японии превзошёл ожидания", pairs: ['USD/JPY OTC', 'EUR/JPY OTC'], direction: 'DOWN'},
+    {text: "Безопасный статус йены активируется на фоне глобической неопределённости", pairs: ['USD/JPY OTC', 'EUR/JPY', 'GBP/JPY'], direction: 'DOWN'},
+    {text: "Японские страховые компании выводят капитал за рубеж, давление на йену", pairs: ['USD/JPY OTC', 'EUR/JPY OTC'], direction: 'UP'},
+    {text: "Интервенции Минфина Японии по поддержке йены ожидаются на рынке", pairs: ['USD/JPY OTC'], direction: 'DOWN'},
+    {text: "Крупная японская корпорация объявила о buyback акций, йена слабеет", pairs: ['USD/JPY OTC', 'EUR/JPY'], direction: 'UP'},
+    {text: "Данные по торговому балансу Японии показали рекордный профицит", pairs: ['USD/JPY OTC', 'EUR/JPY OTC'], direction: 'DOWN'},
+    {text: "Премьер-министр Японии заявил о стимулировании экономики, давление на йену", pairs: ['USD/JPY OTC', 'GBP/JPY'], direction: 'UP'},
+    {text: "Токийская сессия демонстрирует повышенную волатильность по йеновым кроссам", pairs: ['EUR/JPY OTC', 'GBP/JPY', 'EUR/JPY'], direction: null},
+    {text: "Японские пенсионные фонды диверсифицируют портфели в европейские активы", pairs: ['EUR/JPY OTC', 'EUR/JPY'], direction: 'UP'},
+    {text: "Отчёт Tankan показал улучшение деловых настроений в Японии", pairs: ['USD/JPY OTC', 'EUR/JPY OTC'], direction: 'DOWN'},
+    {text: "Ураган в регионе Кансай создаёт неопределённость для японской экономики", pairs: ['USD/JPY OTC'], direction: 'UP'},
+    {text: "Резервный банк Австралии намекнул на повышение ставок, австралиец растёт", pairs: ['AUD/CAD OTC', 'GBP/AUD OTC', 'GBP/AUD'], direction: 'DOWN'},
+    {text: "Цены на железную руду в Китае растут, поддерживая австралийский доллар", pairs: ['AUD/CAD OTC', 'GBP/AUD OTC'], direction: 'DOWN'},
+    {text: "Крупный австралийский банк NAB размещает защитные ордера на продажу", pairs: ['AUD/CAD OTC', 'GBP/AUD'], direction: 'UP'},
+    {text: "Данные по занятости в Австралии значительно превзошли прогнозы", pairs: ['AUD/CAD OTC', 'GBP/AUD OTC'], direction: 'DOWN'},
+    {text: "Китай снижает импорт угля, давление на австралийский доллар", pairs: ['AUD/CAD OTC', 'GBP/AUD OTC'], direction: 'UP'},
+    {text: "Австралийский товарный экспорт показывает снижение объёмов", pairs: ['AUD/CAD OTC', 'GBP/AUD'], direction: 'UP'},
+    {text: "Сиднейская сессция открылась с крупными покупками австралийца", pairs: ['AUD/CAD OTC', 'GBP/AUD OTC'], direction: 'DOWN'},
+    {text: "Сектор недвижимости Австралии демонстрирует признаки замедления", pairs: ['AUD/CAD OTC', 'GBP/AUD'], direction: 'UP'},
+    {text: "Крупный австралийский майнинговый гигант объявил о рекордной выручке", pairs: ['AUD/CAD OTC', 'GBP/AUD OTC'], direction: 'DOWN'},
+    {text: "Рост ВВП Китая выше ожиданий, положительно для AUD", pairs: ['AUD/CAD OTC', 'GBP/AUD OTC'], direction: 'DOWN'},
+    {text: "Резервный банк Новой Зеландии сохраняет жёсткую риторику, киви укрепляется", pairs: ['EUR/NZD OTC', 'NZD/USD'], direction: 'DOWN'},
+    {text: "Данные по молочным аукционам Новой Зеландии показали рост цен", pairs: ['EUR/NZD OTC', 'NZD/USD'], direction: 'DOWN'},
+    {text: "Новозеландский экспорт мяса столкнулся с торговыми барьерами", pairs: ['EUR/NZD OTC', 'NZD/USD'], direction: 'UP'},
+    {text: "Вулканическая активность в регионе создаёт экономические риски", pairs: ['EUR/NZD OTC', 'NZD/USD'], direction: 'UP'},
+    {text: "Крупный новозеландский фонд накапливает иностранную валюту", pairs: ['EUR/NZD OTC', 'NZD/USD'], direction: 'UP'},
+    {text: "Торговый баланс Новой Зеландии улучшился благодаря туризму", pairs: ['EUR/NZD OTC', 'NZD/USD'], direction: 'DOWN'},
+    {text: "РБНЗ сигнализирует о возможном смягчении политики", pairs: ['EUR/NZD OTC', 'NZD/USD'], direction: 'UP'},
+    {text: "Сельскохозяйственный сектор Новой Зеландии отчитался о рекордном урожае", pairs: ['EUR/NZD OTC', 'NZD/USD'], direction: 'DOWN'},
+    {text: "Укрепление китайского юаня положительно сказывается на NZD", pairs: ['EUR/NZD OTC', 'NZD/USD'], direction: 'DOWN'},
+    {text: "Новозеландский доллар теряет позиции на фоне снижения сырьевых цен", pairs: ['EUR/NZD OTC', 'NZD/USD'], direction: 'UP'},
+    {text: "Азиатская сессия открылась с повышенной активностью", pairs: ['USD/JPY OTC', 'EUR/JPY OTC', 'AUD/CAD OTC', 'GBP/AUD OTC'], direction: null},
+    {text: "Токийская биржа фиксирует крупные блоковые сделки", pairs: ['USD/JPY OTC', 'EUR/JPY OTC', 'EUR/JPY'], direction: null},
+    {text: "Азиатские рынки акций демонстрируют уверенный рост", pairs: ['USD/JPY OTC', 'AUD/CAD OTC', 'EUR/NZD OTC'], direction: null},
+    {text: "Китайские инвесторы активно выходят на валютный рынок", pairs: ['AUD/CAD OTC', 'EUR/NZD OTC', 'NZD/USD'], direction: null},
+];
+
+// Фразы входа (39 шт)
+const ENTRY_PHRASES = [
+    "Точка входа идентифицирована. Формирую торговый сигнал...",
+    "Оптимальный момент входа найден. Готовлю рекомендацию...",
+    "Анализ подтверждён. Отправляю сигнал на исполнение...",
+    "Паттерн подтверждён. Фиксирую точку входа...",
+    "Все индикаторы сошлись. Генерирую торговый сигнал...",
+    "Входная зона определена с высокой точностью...",
+    "Конфлюэнс факторов указывает на чёткий вход...",
+    "Модель прогнозирования выдала сильный сигнал...",
+    "Алгоритм обнаружил высоковероятную установку...",
+    "Рыночные условия созрели для входа в позицию...",
+    "Корреляция индикаторов подтверждает вход...",
+    "Технический сетап сформирован. Выдаю сигнал...",
+    "Анализ завершён. Точка входа подтверждена...",
+    "Волновая структура указывает на направление...",
+    "Кластерный анализ выявил зону интереса...",
+    "Импульсная волна подтверждает направление сделки...",
+    "Пробой ключевого уровня зафиксирован...",
+    "Ретест уровня поддержки/сопротивления успешен...",
+    "Дивергенция на осцилляторах подтверждает вход...",
+    "Объёмный профиль указывает на сильную зону...",
+    "Ликвидность собрана, движение начинается...",
+    "Фибоначчи-уровни совпали с зоной спроса...",
+    "Баланс цены и объёма смещается в нужном направлении...",
+    "Скрытая дивергенция подтверждает продолжение тренда...",
+    "Пин-бар на дневном таймфрейме даёт сигнал...",
+    "Пробой линии тренда подтверждён объёмами...",
+    "Медианная линия канала достигнута, отскок вероятен...",
+    "Формация флага завершена, продолжение движения...",
+    "RSI вышел из зоны перекупленности/перепроданности...",
+    "MACD дал пересечение в направлении тренда...",
+    "Стохастик подтвердил разворот в зоне экстремума...",
+    "Bolinger Bands сжались, готовится импульс...",
+    "Пробой POC (Point of Control) на объёмном профиле...",
+    "VWAP пробой подтверждает направление институционалов...",
+    "Тепловая карта ликвидности показывает цель движения...",
+    "Крупный ордер в стакане подтверждает направление...",
+    "Анализ Footprint выявил поглощение лимитных заявок...",
+    "Дельта объёмов указывает на доминирование покупателей/продавцов...",
+    "Кумулятивная дельта подтверждает накопление позиций...",
+];
+
+// Фразы результата (30 шт)
+const RESULT_PHRASES = [
+    "Сделка закрыта. Анализирую результат...",
+    "Позиция закрыта. Обновляю статистику...",
+    "Торговый цикл завершён. Перехожу к следующему анализу...",
+    "Сделка исполнена. Проверяю точность прогноза...",
+    "Результат зафиксирован. Готовлю следующий сигнал...",
+    "Сделка завершена. Пересчитываю модели...",
+    "Позиция закрыта по экспирации. Обновляю данные...",
+    "Торговая операция завершена. Сканирую новые возможности...",
+    "Результат сделки записан. Анализирую рынок далее...",
+    "Сделка закрыта. Корректирую алгоритмы...",
+    "Исполнение подтверждено. Перезагружаю аналитические модули...",
+    "Торговый сигнал отработан. Готовлюсь к следующему циклу...",
+    "Сделка завершена. Проверяю корреляции...",
+    "Позиция закрыта. Рынок готов к новому движению...",
+    "Результат зафиксирован. Точность модели обновлена...",
+    "Сделка отработана. Ищу следующую точку входа...",
+    "Торговый цикл завершён успешно. Продолжаю мониторинг...",
+    "Сделка закрыта. Алгоритм адаптируется к новым данным...",
+    "Позиция закрыта. Анализирую изменение волатильности...",
+    "Результат записан. Перехожу к следующему сканированию...",
+    "Сделка завершена. Обновляю уровни поддержки и сопротивления...",
+    "Торговая операция завершена. Проверяю межрыночные корреляции...",
+    "Сигнал отработан. Пересчитываю вероятностные модели...",
+    "Сделка закрыта. Рынок консолидируется после движения...",
+    "Позиция закрыта по таймеру. Готовлю следующий анализ...",
+    "Торговый цикл завершён. Загружаю свежие рыночные данные...",
+    "Сделка отработана. Анализирую реакцию рынка...",
+    "Результат зафиксирован. Модель обучения обновлена...",
+    "Сделка завершена. Проверяю ликвидность для следующего входа...",
+    "Позиция закрыта. Перехожу к сканированию новых возможностей...",
+];
+
+// Все валютные пары
+const ASSETS = [
+    'EUR/USD OTC','EUR/AUD OTC','EUR/CAD OTC','EUR/CHF OTC','EUR/GBP OTC','EUR/JPY OTC','EUR/NZD OTC',
+    'GBP/AUD OTC','AUD/CAD OTC','XAU/USD OTC','USD/SEK OTC','USD/JPY OTC','CAD/CHF OTC',
+    'GBP/AUD','GBP/CAD','GBP/CHF','GBP/JPY','GBP/USD','NZD/USD','USD/CAD','USD/CHF',
+    'SOL/USDT','XAU/USD','EUR/JPY','USD/SEK','USD/JPY','CAD/CHF'
+];
+
+
+        // ==========================================
+        // ОСНОВНАЯ ЛОГИКA AURA TRADE TERMINAL
+        // ==========================================
+
+        const ACCESS_KEYS = {
+            'MAT400': { limit: 1 * 60 * 60 * 1000, name: 'MAT400 (1 hour)', hours: 1 },
+            'MAT500': { limit: 2 * 60 * 60 * 1000, name: 'MAT500 (2 hours)', hours: 2 },
+            'MAT600': { limit: 3 * 60 * 60 * 1000, name: 'MAT600 (3 hours)', hours: 3 },
+            'MAT800': { limit: 4 * 60 * 60 * 1000, name: 'MAT800 (4 hours)', hours: 4 },
+            'MAT1000': { limit: 5 * 60 * 60 * 1000, name: 'MAT1000 (5 hours)', hours: 5 }
+        };
+
+        // Session state
+        var session = {
+            name: '',
+            accessKey: '',
+            signalsUsed: 0,
+            limit: 0,
+            isActive: false,
+            currentAsset: null,
+            currentDirection: null,
+            startTime: null,
+            uptimeInterval: null,
+            statsInterval: null,
+            botCycleInterval: null,
+            timerInterval: null,
+            isVIP: true,
+            accessEndTime: null,
+            accessCheckInterval: null,
+            usedPhraseIndices: [],
+            cycleCount: 0
+        };
+
+        // Utility functions
+        function delay(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        function random(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        function addMessage(text, type) {
+            const chat = document.getElementById('chatMessages');
+            const msg = document.createElement('div');
+            msg.className = 'message ' + (type || 'bot');
+            msg.innerHTML = text;
+            chat.appendChild(msg);
+            
+            // ОПТИМИЗАЦИЯ ПРОТИВ ЛАГОВ: Оставляем только 100 последних сообщений
+            while(chat.children.length > 100) {
+                chat.removeChild(chat.firstChild);
+            }
+
+            chat.scrollTop = chat.scrollHeight;
+        }
+
+        function setStatus(text) {
+            document.getElementById('statusInfo').textContent = text;
+        }
+
+        function setActive(text) {
+            document.getElementById('activeInfo').textContent = text;
+        }
+
+        function updateSessionInfo() {
+            document.getElementById('sessionName').textContent = session.name;
+            var accessLabel = ACCESS_KEYS[session.accessKey] ? ACCESS_KEYS[session.accessKey].name : 'Unknown';
+            document.getElementById('sessionAccess').textContent = accessLabel;
+            document.getElementById('sessionSignals').textContent = session.signalsUsed;
+        }
+
+        // Check if access is expired
+        function isAccessExpired() {
+            return Date.now() > session.accessEndTime;
+        }
+
+        // Get remaining access time
+        function getRemainingAccessTime() {
+            var remaining = session.accessEndTime - Date.now();
+            return remaining > 0 ? remaining : 0;
+        }
+
+        // Format time
+        function formatTime(ms) {
+            var totalSeconds = Math.floor(ms / 1000);
+            var hours = Math.floor(totalSeconds / 3600);
+            var minutes = Math.floor((totalSeconds % 3600) / 60);
+            var seconds = totalSeconds % 60;
+            return String(hours).padStart(2, '0') + ':' + String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0');
+        }
+
+        // Key usage check
+        function isKeyUsed(key) {
+            return localStorage.getItem('aura_key_used_' + key) === 'true';
+        }
+
+        function markKeyAsUsed(key) {
+            localStorage.setItem('aura_key_used_' + key, 'true');
+        }
+
+        // Get random phrase avoiding recent repeats
+        function getRandomPhrase(phrasesArray) {
+            var idx = random(0, phrasesArray.length - 1);
+            return phrasesArray[idx];
+        }
+
+        // Get random regional phrase with smart selection
+        function getSmartRegionalPhrase() {
+            var idx = random(0, REGIONAL_PHRASES.length - 1);
+            var phrase = REGIONAL_PHRASES[idx];
+            
+            // Select a pair from the phrase's preferred pairs
+            var pair = phrase.pairs[random(0, phrase.pairs.length - 1)];
+            
+            return {
+                text: phrase.text,
+                pair: pair,
+                direction: phrase.direction
+            };
+        }
+
+        // Uptime
+        function updateUptime() {
+            var elapsed = Date.now() - session.startTime;
+            var hours = Math.floor(elapsed / 3600000);
+            var minutes = Math.floor((elapsed % 3600000) / 60000);
+            var seconds = Math.floor((elapsed % 60000) / 1000);
+            var formatted = String(hours).padStart(2, '0') + ':' + String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0');
+            document.getElementById('uptime').textContent = formatted;
+        }
+
+        function updateStats() {
+            var accuracy = Math.floor(Math.random() * (96 - 85 + 1)) + 85;
+            document.getElementById('accuracy').textContent = accuracy + '%';
+            var latency = Math.floor(Math.random() * (25 - 8 + 1)) + 8;
+            document.getElementById('latency').textContent = latency + 'ms';
+            var nextUpdate = Math.floor(Math.random() * (10000 - 2000 + 1)) + 2000;
+            setTimeout(updateStats, nextUpdate);
+        }
+
+        function startSystemStats() {
+            session.startTime = Date.now();
+            session.uptimeInterval = setInterval(updateUptime, 1000);
+            updateStats();
+        }
+
+        // Show VIP status
+        function updateVIPStatus() {
+            var container = document.getElementById('vipStatus');
+            var remaining = getRemainingAccessTime();
+            container.innerHTML = '<span class="status-badge vip">VIP</span><div class="vip-timer">Expires in: ' + formatTime(remaining) + '</div>';
+        }
+
+        // Check access expiration
+        function checkAccessExpiration() {
+            if (isAccessExpired()) {
+                // Access expired
+                addMessage('<strong>Your VIP access has expired. Please enter a new access key to continue.</strong>');
+                setStatus('Access expired');
+                document.getElementById('renewButton').style.display = 'block';
+                if (session.botCycleInterval) {
+                    clearTimeout(session.botCycleInterval);
+                }
+                return true;
+            }
+            return false;
+        }
+
+        // ===========================
+        // MAIN BOT CYCLE
+        // ===========================
+
+        async function runBotCycle() {
+            if (checkAccessExpiration()) return;
+            if (session.isActive) return;
+
+            session.isActive = true;
+            session.cycleCount++;
+            setStatus('Analyzing market...');
+
+            // Phase 1: Analysis messages (3-5 messages with delays)
+            var analysisCount = random(3, 5);
+            var usedIndices = new Set();
+
+            for (var i = 0; i < analysisCount; i++) {
+                if (checkAccessExpiration()) return;
+                
+                var idx;
+                do {
+                    idx = random(0, ANALYZING_PHRASES.length - 1);
+                } while (usedIndices.has(idx) && usedIndices.size < ANALYZING_PHRASES.length);
+                usedIndices.add(idx);
+
+                addMessage(ANALYZING_PHRASES[idx]);
+                setActive('Scanning... ' + (i + 1) + '/' + analysisCount);
+                await delay(random(2000, 4000));
+            }
+
+            if (checkAccessExpiration()) return;
+
+            // Phase 2: Regional/market context phrase
+            var regional = getSmartRegionalPhrase();
+            addMessage(regional.text);
+            session.currentAsset = regional.pair;
+            session.currentDirection = regional.direction;
+            setActive(regional.pair + ' — analyzing');
+            await delay(random(2000, 3500));
+
+            if (checkAccessExpiration()) return;
+
+            // Phase 3: Entry point found
+            var entryPhrase = ENTRY_PHRASES[random(0, ENTRY_PHRASES.length - 1)];
+            addMessage('<strong>' + entryPhrase + '</strong>');
+            setStatus('Entry point identified');
+            await delay(random(1500, 2500));
+
+            if (checkAccessExpiration()) return;
+
+            // Phase 4: Signal
+            var direction = session.currentDirection || (Math.random() < 0.5 ? 'UP' : 'DOWN');
+            var directionClass = direction === 'UP' ? 'up' : 'down';
+            var dirColor = direction === 'UP' ? '#10b981' : '#ef4444';
+            var dirArrow = direction === 'UP' ? '&#8593;' : '&#8595;';
+
+            var timerId = 'entryTimer_' + session.cycleCount;
+            var signalHtml = '<div class="signal-info">' +
+                '<div class="signal-pair">' + session.currentAsset + '</div>' +
+                '<div style="opacity: 0.7; font-size: 14px;">Expiration: 1 minute</div>' +
+                '<div class="signal-direction ' + directionClass + '">' + dirArrow + ' ' + direction + ' ' + dirArrow + '</div>' +
+                '<div style="font-size: 13px; opacity: 0.8; margin-top: 8px;">Entry window: <strong>20 seconds</strong></div>' +
+                '<div class="timer" id="' + timerId + '">00:20</div>' +
+                '</div>';
+
+            addMessage(signalHtml, 'bot strong-signal');
+            setStatus('Signal active — 20s entry');
+            setActive(session.currentAsset + ' — ' + direction);
+
+            // Start 20-second entry timer
+            await runEntryTimer(20, timerId);
+
+            if (checkAccessExpiration()) return;
+
+            // Phase 5: Entry closed, waiting for expiration
+            addMessage('<strong>Entry window closed. Position locked. Awaiting expiration (1 minute)...</strong>');
+            setStatus('Position active — 60s');
+            await delay(1000);
+
+            // Run 60-second expiration timer
+            await runExpirationTimer(60);
+
+            if (checkAccessExpiration()) return;
+
+            // Phase 6: Result
+            session.signalsUsed++;
+            updateSessionInfo();
+
+            var resultPhrase = RESULT_PHRASES[random(0, RESULT_PHRASES.length - 1)];
+            addMessage(resultPhrase);
+            setStatus('Idle');
+            setActive('—');
+            session.isActive = false;
+            session.currentAsset = null;
+            session.currentDirection = null;
+
+            await delay(random(2000, 4000));
+
+            if (checkAccessExpiration()) return;
+
+            // Next cycle
+            runBotCycle();
+        }
+
+        async function runEntryTimer(seconds, timerId) {
+            return new Promise(resolve => {
+                var remaining = seconds;
+                
+                var interval = setInterval(function() {
+                    remaining--;
+                    
+                    var timerEl = document.getElementById(timerId);
+                    if (timerEl) {
+                        timerEl.textContent = '00:' + String(remaining).padStart(2, '0');
+                        if (remaining <= 5) {
+                            timerEl.classList.add('urgent');
+                        }
+                    }
+                    
+                    setActive(session.currentAsset + ' — ENTRY ' + remaining + 's');
+
+                    if (remaining <= 0) {
+                        clearInterval(interval);
+                        resolve();
+                    }
+                }, 1000);
+            });
+        }
+
+        async function runExpirationTimer(seconds) {
+            return new Promise(resolve => {
+                var remaining = seconds;
+                
+                var interval = setInterval(function() {
+                    remaining--;
+                    setActive(session.currentAsset + ' — expires in ' + remaining + 's');
+
+                    if (remaining <= 0) {
+                        clearInterval(interval);
+                        resolve();
+                    }
+                }, 1000);
+            });
+        }
+
+        // Initialize chat
+        async function initializeChat() {
+            await delay(1500);
+            addMessage('Welcome, <strong>' + session.name + '</strong>. I am the premium trading bot by Mateus Midas.');
+            await delay(2000);
+            
+            addMessage('VIP access activated. You have unlimited trading signals during your session.');
+            await delay(1500);
+            
+            addMessage('Starting autonomous market scanning. I will continuously analyze the market and provide trading signals.');
+            await delay(2000);
+            addMessage('Each signal includes: currency pair, direction (UP/DOWN), and a 20-second entry window. After entry, the trade expires in 1 minute.');
+            await delay(1500);
+            addMessage('<strong>Starting analysis...</strong>');
+            await delay(1000);
+
+            startSystemStats();
+            
+            session.accessCheckInterval = setInterval(updateVIPStatus, 1000);
+            updateVIPStatus();
+
+            // Start the bot cycle
+            runBotCycle();
+        }
+
+        // Handle login
+        function handleLogin(e) {
+            if (e) e.preventDefault();
+            
+            var keyInput = document.getElementById('accessKey');
+            var nameInput = document.getElementById('userName');
+            var errorDiv = document.getElementById('errorMessage');
+            var successDiv = document.getElementById('successMessage');
+
+            var key = keyInput.value.trim().toUpperCase();
+            var name = nameInput.value.trim();
+
+            if (!name) name = 'Trader';
+
+            errorDiv.style.display = 'none';
+            successDiv.style.display = 'none';
+
+            // Check access keys
+            if (ACCESS_KEYS[key]) {
+                // Key is valid
+                session.accessKey = key;
+                session.name = name;
+                session.limit = ACCESS_KEYS[key].limit;
+                session.signalsUsed = 0;
+                session.isVIP = true;
+                session.accessEndTime = Date.now() + ACCESS_KEYS[key].limit;
+
+                // Store in localStorage
+                localStorage.setItem('aura_vip_key', key);
+                localStorage.setItem('aura_vip_start', Date.now().toString());
+                localStorage.setItem('aura_vip_end', session.accessEndTime.toString());
+
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('terminalScreen').classList.add('active');
+                updateSessionInfo();
+                initializeChat();
+            } else {
+                errorDiv.textContent = 'Invalid access key. Use one of: MAT400, MAT500, MAT600, MAT800, MAT1000';
+                errorDiv.style.display = 'block';
+            }
+        }
+
+        // Renew key
+        function renewKey() {
+            location.reload();
+        }
+
+        // Event listeners
+        window.addEventListener('load', function() {
+            var loginBtn = document.querySelector('.login-button');
+            var form = document.getElementById('loginForm');
+
+            loginBtn.addEventListener('click', handleLogin);
+            form.addEventListener('submit', handleLogin);
+
+            // Theme toggle
+            document.getElementById('lightBtn').addEventListener('click', function() {
+                document.body.className = 'light';
+                document.getElementById('lightBtn').classList.add('active');
+                document.getElementById('darkBtn').classList.remove('active');
+            });
+
+            document.getElementById('darkBtn').addEventListener('click', function() {
+                document.body.className = 'dark';
+                document.getElementById('darkBtn').classList.add('active');
+                document.getElementById('lightBtn').classList.remove('active');
+            });
+
+            // Check if returning from active VIP session
+            var storedKey = localStorage.getItem('aura_vip_key');
+            var storedEnd = parseInt(localStorage.getItem('aura_vip_end') || '0');
+            
+            if (storedKey && Date.now() < storedEnd) {
+                // Session still active
+                session.accessKey = storedKey;
+                session.accessEndTime = storedEnd;
+                session.isVIP = true;
+                session.limit = ACCESS_KEYS[storedKey].limit;
+                session.signalsUsed = 0;
+                
+                var nameInput = document.getElementById('userName');
+                nameInput.value = 'Trader';
+                session.name = 'Trader';
+                
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('terminalScreen').classList.add('active');
+                updateSessionInfo();
+                initializeChat();
+            }
+        });
+    </script>
+</body>
+</html>
