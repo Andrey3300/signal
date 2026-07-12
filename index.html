@@ -611,21 +611,19 @@
 
             .info-panel {
                 width: auto;
-                flex-direction: row;
-                flex-wrap: wrap;
-                gap: 10px;
-                padding: 12px;
-                overflow: visible;
+                flex-direction: column;
+                gap: 0;
+                padding: 15px;
+                overflow-y: auto;
+                max-height: 50vh;
             }
 
             .info-section {
-                margin-bottom: 6px;
-                flex: 1;
-                min-width: 140px;
+                margin-bottom: 10px;
             }
 
             .info-divider {
-                display: none;
+                display: block;
             }
 
             .footer {
@@ -639,11 +637,13 @@
                 padding: 6px;
                 display: flex;
                 flex-direction: column;
+                height: 100vh;
             }
 
             .terminal-screen {
                 display: flex;
                 flex-direction: column;
+                height: 100vh;
             }
 
             .header {
@@ -681,32 +681,37 @@
             .main-content {
                 flex-direction: column;
                 flex: 1;
-                gap: 0;
+                gap: 12px;
                 overflow-y: auto;
                 padding: 0;
             }
 
             .chat-section {
-                flex: 0 1 auto;
-                min-height: 60vh;
-                margin-bottom: 12px;
+                flex: 0 0 auto;
+                min-height: auto;
+                margin-bottom: 0;
                 border-radius: 16px;
+                display: flex;
+                flex-direction: column;
+                height: 60vh;
             }
 
             .chat-messages {
                 flex: 1;
-                min-height: 300px;
+                min-height: 0;
                 margin-bottom: 10px;
             }
 
             .info-panel {
-                flex: 0 1 auto;
+                flex: 0 0 auto;
                 width: 100%;
+                max-height: none;
                 flex-direction: column;
                 gap: 0;
                 padding: 15px;
                 overflow-y: auto;
                 border-radius: 16px;
+                margin-bottom: 20px;
             }
 
             .info-section {
