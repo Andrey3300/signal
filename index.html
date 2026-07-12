@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mateus Midas Trading Terminal</title>
+    <title>Terminal de Negociação Mateus Midas</title>
     <style>
         * {
             margin: 0;
@@ -41,7 +41,6 @@
             width: 100%;
         }
 
-        /* Login Screen */
         .login-screen {
             display: flex;
             align-items: center;
@@ -177,7 +176,6 @@
             border: 1px solid rgba(16, 185, 129, 0.3);
         }
 
-        /* Main Terminal */
         .terminal-screen {
             display: none;
             flex-direction: column;
@@ -549,10 +547,10 @@
             margin-top: 8px;
         }
 
-        .status-badge.trial {
-            background: rgba(251, 191, 36, 0.2);
-            color: #f59e0b;
-            border: 1px solid rgba(251, 191, 36, 0.3);
+        .status-badge.vip {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+            border: 1px solid rgba(16, 185, 129, 0.3);
         }
 
         .status-badge.active {
@@ -561,7 +559,7 @@
             border: 1px solid rgba(16, 185, 129, 0.3);
         }
 
-        .trial-timer {
+        .vip-timer {
             font-family: 'Courier New', monospace;
             font-size: 12px;
             color: #10b981;
@@ -601,12 +599,8 @@
                 gap: 10px;
             }
 
-            .chat-section {
-                flex: 1;
-                min-height: 300px;
-            }
-
             .chat-messages {
+                flex: 1;
                 min-height: 200px;
             }
 
@@ -616,13 +610,12 @@
             }
 
             .info-panel {
-                width: 100%;
+                width: auto;
                 flex-direction: row;
                 flex-wrap: wrap;
                 gap: 10px;
                 padding: 12px;
                 overflow: visible;
-                max-height: none;
             }
 
             .info-section {
@@ -641,14 +634,25 @@
             }
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 640px) {
             .container {
                 padding: 6px;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .terminal-screen {
+                display: flex;
+                flex-direction: column;
             }
 
             .header {
-                margin-bottom: 8px;
-                padding: 8px 12px;
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+                margin-bottom: 10px;
+                padding: 10px 14px;
+                flex-shrink: 0;
             }
 
             .logo-text h1 {
@@ -669,213 +673,58 @@
                 font-size: 22px;
             }
 
-            .login-box {
-                padding: 30px 20px;
-            }
-
             .theme-toggle {
                 width: 100%;
                 justify-content: center;
-                gap: 8px;
-            }
-
-            .theme-btn {
-                padding: 6px 14px;
-                font-size: 13px;
             }
 
             .main-content {
-                gap: 8px;
                 flex-direction: column;
-            }
-
-            .chat-section {
                 flex: 1;
-                min-height: 250px;
-                padding: 12px;
-                order: 1;
-            }
-
-            .info-panel {
-                width: 100%;
-                order: 2;
-                max-height: 40vh;
+                gap: 0;
                 overflow-y: auto;
-                flex-direction: column;
-                gap: 8px;
-                padding: 12px;
-            }
-
-            .chat-messages {
-                min-height: 200px;
-                margin-bottom: 8px;
-            }
-
-            .message.bot, .message.user {
-                max-width: 95%;
-                padding: 6px 10px;
-                font-size: 13px;
-            }
-
-            .info-section {
-                margin-bottom: 4px;
-            }
-
-            .signal-info {
-                padding: 10px;
-                margin: 6px 0;
-            }
-
-            .signal-pair {
-                font-size: 16px;
-            }
-
-            .timer {
-                font-size: 22px;
-                margin: 6px 0;
-            }
-
-            .renew-button {
-                padding: 14px;
-                font-size: 16px;
-                margin-top: 10px;
-            }
-
-            .footer {
-                margin-top: 4px;
-                font-size: 11px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                padding: 4px;
-            }
-
-            .header {
-                margin-bottom: 6px;
-                padding: 6px 10px;
-            }
-
-            .logo {
-                width: 36px;
-                height: 36px;
-                font-size: 16px;
-            }
-
-            .logo-text h1 {
-                font-size: 16px;
-            }
-
-            .logo-text p {
-                font-size: 11px;
-            }
-
-            .login-box {
-                padding: 25px 18px;
-                margin: 10px;
-            }
-
-            .login-logo {
-                width: 60px;
-                height: 60px;
-                font-size: 28px;
-            }
-
-            .login-title {
-                font-size: 20px;
-            }
-
-            .login-subtitle {
-                font-size: 13px;
-                margin-bottom: 30px;
-            }
-
-            .input-group {
-                margin-bottom: 18px;
-            }
-
-            .main-content {
-                gap: 6px;
                 padding: 0;
             }
 
             .chat-section {
-                flex: 1;
-                min-height: 300px;
-                padding: 10px;
-            }
-
-            .info-panel {
-                width: 100%;
-                padding: 10px;
-                gap: 6px;
-                max-height: 35vh;
+                flex: 0 1 auto;
+                min-height: 60vh;
+                margin-bottom: 12px;
+                border-radius: 16px;
             }
 
             .chat-messages {
-                min-height: 250px;
-                margin-bottom: 6px;
-                padding-right: 6px;
+                flex: 1;
+                min-height: 300px;
+                margin-bottom: 10px;
             }
 
-            .message {
-                margin-bottom: 8px;
+            .info-panel {
+                flex: 0 1 auto;
+                width: 100%;
+                flex-direction: column;
+                gap: 0;
+                padding: 15px;
+                overflow-y: auto;
+                border-radius: 16px;
+            }
+
+            .info-section {
+                margin-bottom: 10px;
+            }
+
+            .info-divider {
+                display: block;
             }
 
             .message.bot, .message.user {
-                max-width: 98%;
-                padding: 5px 8px;
-                font-size: 12px;
-            }
-
-            .signal-info {
-                padding: 8px;
-                margin: 4px 0;
-            }
-
-            .signal-pair {
-                font-size: 14px;
-                margin-bottom: 2px;
-            }
-
-            .signal-direction {
-                font-size: 16px;
-                margin: 4px 0;
-            }
-
-            .timer {
-                font-size: 20px;
-                margin: 4px 0;
-            }
-
-            .renew-button {
-                padding: 12px;
-                font-size: 14px;
-                margin-top: 8px;
-            }
-
-            .info-section h3 {
-                font-size: 12px;
-                margin-bottom: 4px;
-            }
-
-            .info-content {
-                font-size: 11px;
+                max-width: 92%;
+                padding: 6px 10px;
+                font-size: 13px;
             }
 
             .footer {
-                margin-top: 4px;
-                font-size: 10px;
-            }
-
-            .theme-toggle {
-                gap: 6px;
-            }
-
-            .theme-btn {
-                padding: 6px 12px;
-                font-size: 12px;
+                margin-top: 10px;
             }
         }
     </style>
@@ -885,20 +734,20 @@
         <div class="login-box">
             <div class="login-logo">MM</div>
             <h2 class="login-title">Mateus Midas Trading Terminal</h2>
-            <p class="login-subtitle">Welcome to Mateus Midas — your personal AI-powered trading assistant</p>
+            <p class="login-subtitle">Bem-vindo ao Mateus Midas — seu assistente de negociação com IA alimentado pessoalmente</p>
 
             <form id="loginForm">
                 <div class="input-group">
-                    <label class="input-label">Access Key</label>
-                    <input type="text" id="accessKey" class="input-field" placeholder="Enter your key" required>
+                    <label class="input-label">Chave de Acesso VIP</label>
+                    <input type="text" id="accessKey" class="input-field" required>
                 </div>
 
                 <div class="input-group">
-                    <label class="input-label">How can I address you?</label>
-                    <input type="text" id="userName" class="input-field" placeholder="Your name (optional)">
+                    <label class="input-label">Como posso chamá-lo?</label>
+                    <input type="text" id="userName" class="input-field">
                 </div>
 
-                <button type="submit" class="login-button">Enter Trading Terminal</button>
+                <button type="submit" class="login-button">Entrar no Terminal de Negociação</button>
 
                 <div id="errorMessage" style="display: none;" class="error-message"></div>
                 <div id="successMessage" style="display: none;" class="success-message"></div>
@@ -912,43 +761,43 @@
                 <div class="logo">MM</div>
                 <div class="logo-text">
                     <h1>Mateus Midas Trading Terminal</h1>
-                    <p>Premium trading assistant</p>
+                    <p>Assistente de negociação premium</p>
                 </div>
             </div>
             <div class="theme-toggle">
-                <button class="theme-btn" id="lightBtn">Light</button>
-                <button class="theme-btn active" id="darkBtn">Dark</button>
+                <button class="theme-btn" id="lightBtn">Claro</button>
+                <button class="theme-btn active" id="darkBtn">Escuro</button>
             </div>
         </div>
 
         <div class="main-content">
             <div class="chat-section">
                 <div class="chat-messages" id="chatMessages">
-                    <div class="message system">Initializing neural core...</div>
+                    <div class="message system">Inicializando núcleo neural...</div>
                 </div>
 
-                <button class="renew-button" id="renewButton" style="display: none;" onclick="renewKey()">Enter New Key</button>
+                <button class="renew-button" id="renewButton" style="display: none;" onclick="renewKey()">Inserir Nova Chave</button>
 
                 <div class="footer">
-                    Bot created by trader Mateus Midas. All rights reserved.
+                    Bot criado pelo trader Mateus Midas. Todos os direitos reservados.
                 </div>
             </div>
 
             <div class="info-panel">
                 <div class="info-section">
-                    <h3>Session</h3>
+                    <h3>Sessão</h3>
                     <div class="info-content">
-                        <div>Name: <span id="sessionName">—</span></div>
-                        <div>Access: <span id="sessionAccess">—</span></div>
-                        <div>Signals: <span id="sessionSignals">—</span></div>
-                        <div id="trialStatus"></div>
+                        <div>Nome: <span id="sessionName">—</span></div>
+                        <div>Acesso: <span id="sessionAccess">—</span></div>
+                        <div>Sinais: <span id="sessionSignals">—</span></div>
+                        <div id="vipStatus"></div>
                     </div>
                 </div>
 
                 <div class="info-divider"></div>
 
                 <div class="info-section">
-                    <h3>Active</h3>
+                    <h3>Ativo</h3>
                     <div class="info-content" id="activeInfo">—</div>
                 </div>
 
@@ -956,20 +805,20 @@
 
                 <div class="info-section">
                     <h3>Status</h3>
-                    <div class="info-content" id="statusInfo">Idle</div>
+                    <div class="info-content" id="statusInfo">Ocioso</div>
                 </div>
 
                 <div class="info-divider"></div>
 
                 <div class="info-section">
-                    <h3>Platform</h3>
-                    <div class="platform-badge">Stockity Optimized</div>
+                    <h3>Plataforma</h3>
+                    <div class="platform-badge">Stockity Otimizado</div>
                 </div>
 
                 <div class="info-divider"></div>
 
                 <div class="info-section">
-                    <h3>Data Sources</h3>
+                    <h3>Fontes de Dados</h3>
                     <div class="connection-list">
                         <div class="connection-item">
                             <span class="status-dot active"></span>
@@ -997,18 +846,18 @@
                 <div class="info-divider"></div>
 
                 <div class="info-section">
-                    <h3>System Status</h3>
+                    <h3>Status do Sistema</h3>
                     <div class="system-stats">
                         <div class="stat-item">
-                            <span class="stat-label">Uptime</span>
+                            <span class="stat-label">Tempo de atividade</span>
                             <span class="stat-value" id="uptime">00:00:00</span>
                         </div>
                         <div class="stat-item">
-                            <span class="stat-label">Accuracy</span>
+                            <span class="stat-label">Precisão</span>
                             <span class="stat-value" id="accuracy">87%</span>
                         </div>
                         <div class="stat-item">
-                            <span class="stat-label">Latency</span>
+                            <span class="stat-label">Latência</span>
                             <span class="stat-value" id="latency">12ms</span>
                         </div>
                     </div>
@@ -1019,466 +868,562 @@
 
     <script>
 // ==========================================
-// ACCESS KEYS DATABASE
+// FRASES BASE DO TERMINAL DE NEGOCIAÇÃO
 // ==========================================
-const ACCESS_KEYS = {
-    'MAT400': { duration: 1 * 60 * 60 * 1000, label: 'MAT400 (1 час)' },
-    'MAT500': { duration: 2 * 60 * 60 * 1000, label: 'MAT500 (2 часа)' },
-    'MAT600': { duration: 3 * 60 * 60 * 1000, label: 'MAT600 (3 часа)' },
-    'MAT800': { duration: 4 * 60 * 60 * 1000, label: 'MAT800 (4 часа)' },
-    'MAT1000': { duration: 5 * 60 * 60 * 1000, label: 'MAT1000 (5 часов)' }
-};
 
-// ==========================================
-// БАЗОВЫЕ ФРАЗЫ
-// ==========================================
 const ANALYZING_PHRASES = [
-    "Сканирую все таймфреймы на предмет точки входа...",
-    "Анализирую ликвидность рынка в реальном времени...",
-    "Проверяю корреляции между основными активами...",
-    "Загружаю исторические данные за последние 24 часа...",
-    "Применяю алгоритмы машинного обучения для прогноза...",
-    "Анализирую объёмы торгов на крупных биржах...",
-    "Оцениваю силу текущего тренда...",
-    "Перекрёстная проверка данных с 5 источников...",
-    "Мониторинг крупных лимитных ордеров...",
-    "Анализирую волатильность рынка...",
-    "Проверяю уровни поддержки и сопротивления...",
-    "Сканирую паттерны свечного анализа...",
-    "Загружаю данные фьючерсных контрактов...",
-    "Анализирую открытый интерес по деривативам...",
-    "Проверяю макроэкономические индикаторы...",
-    "Мониторинг отчётов CFTC по позициям трейдеров...",
-    "Анализирую движение капитала между секторами...",
-    "Проверяю импульсные уровни RSI и MACD...",
-    "Сканирую арбитражные возможности...",
-    "Анализирую спред между спотом и фьючерсами...",
+    "Digitalizando todos os prazos à procura de um ponto de entrada...",
+    "Analisando a liquidez do mercado em tempo real...",
+    "Verificando correlações entre os principais ativos...",
+    "Carregando dados históricos dos últimos 24 horas...",
+    "Aplicando algoritmos de aprendizagem de máquina para previsão...",
+    "Analisando volumes de negociação em grandes bolsas...",
+    "Avaliando a força da tendência atual...",
+    "Verificação cruzada de dados de 5 fontes...",
+    "Monitorando grandes ordens limitadas...",
+    "Analisando a volatilidade do mercado...",
+    "Verificando níveis de suporte e resistência...",
+    "Digitalizando padrões de análise de velas...",
+    "Carregando dados de contratos futuros...",
+    "Analisando interesse em aberto em derivativos...",
+    "Verificando indicadores macroeconômicos...",
+    "Monitorando relatórios CFTC sobre posições comerciais...",
+    "Analisando movimento de capital entre setores...",
+    "Verificando níveis de impulso RSI e MACD...",
+    "Digitalizando oportunidades de arbitragem...",
+    "Analisando o spread entre spot e futuros...",
+    "Carregando dados de taxas interbancárias...",
+    "Verificando atividade de traders institucionais...",
+    "Analisando sentimento de notícias e mercado...",
+    "Monitorando fluxos de caixa para ativos seguros...",
+    "Digitalizando níveis de breakout em todos os pares...",
+    "Analisando padrões cíclicos do mercado...",
+    "Verificando níveis de garantia de margem...",
+    "Carregando dados do calendário econômico...",
+    "Analisando correlação com índices de ações...",
+    "Monitorando atividade de market makers...",
+    "Verificando liquidez do livro de pedidos...",
+    "Analisando dinâmica do índice do dólar DXY...",
+    "Digitalizando anomalias em volumes de negociação...",
+    "Verificando níveis de stop loss de grandes jogadores...",
+    "Analisando fatores sazonais de pares de moedas...",
+    "Carregando dados de reservas internacionais...",
+    "Monitorando mudanças na política monetária...",
+    "Analisando cadeia de suprimentos e fluxos de commodities...",
+    "Verificando atividade de fundos de hedge em tempo real...",
+    "Sincronizando dados com todas as bolsas conectadas...",
 ];
 
 const REGIONAL_PHRASES = [
-    "Токийская фондовая биржа открылась с ростом, йена реагирует на отток капитала",
-    "Банк Японии рассматривает изменение политики отрицательных ставок, йена укрепляется",
-    "Крупный японский экспортёр размещает хедж-ордера на продажу йены",
-    "Инвестиционный фонд из Осаки накапливает длинные позиции по йене",
-    "Отчёт по валовому внутреннему продукту Японии превзошёл ожидания",
-    "Безопасный статус йены активируется на фоне глобической неопределённости",
-    "Крупная японская корпорация объявила о buyback акций, йена слабеет",
-    "Данные по торговому балансу Японии показали рекордный профицит"
+    {text: "A bolsa de valores de Tóquio abriu com ganhos, o iene reage à saída de capital", pairs: ['NZD/USD', 'AUD/CAD', 'GBP/NZD'], direction: 'UP'},
+    {text: "O Banco do Japão considera mudar a política de taxas negativas, o iene se fortalece", pairs: ['NZD/USD', 'CHF/DKK'], direction: 'DOWN'},
+    {text: "Grande exportador japonês coloca ordens de hedge para venda de iene", pairs: ['NZD/USD', 'AUD/CAD'], direction: 'UP'},
+    {text: "Fundo de investimento de Osaka acumula posições longas em iene", pairs: ['NZD/USD'], direction: 'DOWN'},
+    {text: "Dados de PIB do Japão superaram expectativas", pairs: ['NZD/USD', 'EUR/CAD'], direction: 'DOWN'},
+    {text: "Status seguro do iene ativado em contexto de incerteza global", pairs: ['NZD/USD', 'GBP/NZD'], direction: 'DOWN'},
+    {text: "Companhias de seguros japonesas transferem capital para o exterior, pressão sobre o iene", pairs: ['NZD/USD', 'AUD/CAD'], direction: 'UP'},
+    {text: "Intervenções do Ministério das Finanças do Japão para apoiar o iene são esperadas no mercado", pairs: ['NZD/USD'], direction: 'DOWN'},
+    {text: "Grande corporação japonesa anuncia recompra de ações, enfraquecimento do iene", pairs: ['NZD/USD', 'EUR/CAD'], direction: 'UP'},
+    {text: "Dados de saldo comercial do Japão mostram superávit recorde", pairs: ['NZD/USD', 'CHF/DKK'], direction: 'DOWN'},
+    {text: "Banco da Reserva da Austrália sinalizou aumento de taxas, dólar australiano sobe", pairs: ['AUD/CAD', 'GBP/NZD'], direction: 'DOWN'},
+    {text: "Preços de minério de ferro na China crescem, apoiando o dólar australiano", pairs: ['AUD/CAD', 'GBP/NZD'], direction: 'DOWN'},
+    {text: "Grande banco australiano NAB coloca ordens de proteção para venda", pairs: ['AUD/CAD'], direction: 'UP'},
+    {text: "Dados de emprego na Austrália superaram significativamente as previsões", pairs: ['AUD/CAD', 'GBP/NZD'], direction: 'DOWN'},
+    {text: "China reduz importações de carvão, pressão sobre o dólar australiano", pairs: ['AUD/CAD', 'GBP/NZD'], direction: 'UP'},
+    {text: "Banco da Reserva da Nova Zelândia mantém discurso duro, kiwi se fortalece", pairs: ['EUR/NZD', 'GBP/NZD'], direction: 'DOWN'},
+    {text: "Dados de leilões de laticínios da Nova Zelândia mostram aumento de preços", pairs: ['EUR/NZD', 'GBP/NZD'], direction: 'DOWN'},
+    {text: "Exportação de carnes da Nova Zelândia enfrenta barreiras comerciais", pairs: ['EUR/NZD', 'GBP/NZD'], direction: 'UP'},
+    {text: "Atividade vulcânica na região cria riscos econômicos", pairs: ['EUR/NZD', 'GBP/NZD'], direction: 'UP'},
+    {text: "Grande fundo da Nova Zelândia acumula moeda estrangeira", pairs: ['EUR/NZD', 'GBP/NZD'], direction: 'UP'},
+    {text: "Saldo comercial da Nova Zelândia melhorou graças ao turismo", pairs: ['EUR/NZD', 'GBP/NZD'], direction: 'DOWN'},
+    {text: "Sessão asiática abriu com atividade elevada", pairs: ['NZD/USD', 'AUD/CAD', 'EUR/CAD'], direction: null},
+    {text: "Bolsa de Tóquio registra grandes negociações em bloco", pairs: ['NZD/USD', 'EUR/CAD'], direction: null},
+    {text: "Mercados de ações asiáticos demonstram crescimento confiante", pairs: ['NZD/USD', 'AUD/CAD', 'EUR/NZD'], direction: null},
+    {text: "Investidores chineses saem ativamente para o mercado de moedas", pairs: ['AUD/CAD', 'EUR/NZD'], direction: null},
+    {text: "Banco Central Europeu confirmou intenção de continuar aumentando taxas", pairs: ['EUR/USD', 'EUR/CAD', 'EUR/CHF', 'EUR/JPY', 'EUR/NZD'], direction: 'UP'},
+    {text: "Inflação na zona do euro desacelerou mais rápido que o previsto, pressão sobre o euro", pairs: ['EUR/USD', 'EUR/CAD', 'EUR/CHF', 'EUR/NZD'], direction: 'DOWN'},
+    {text: "Grande montadora alemã anuncia investimentos recordes", pairs: ['EUR/USD', 'EUR/CAD', 'EUR/JPY'], direction: 'UP'},
+    {text: "Crise política na França cria incerteza para o euro", pairs: ['EUR/USD', 'EUR/CAD', 'EUR/CHF'], direction: 'DOWN'},
+    {text: "Itália coloca títulos de 10 anos com spread recordemente baixo", pairs: ['EUR/USD', 'EUR/JPY'], direction: 'UP'},
+    {text: "Comissão Europeia elevar previsão de crescimento do PIB da zona do euro", pairs: ['EUR/USD', 'EUR/CAD', 'EUR/JPY'], direction: 'UP'},
+    {text: "Instituto alemão IFO relatou queda no clima de negócios", pairs: ['EUR/USD', 'EUR/CAD', 'EUR/CHF'], direction: 'DOWN'},
+    {text: "BCE testa euro digital, mercado reage positivamente", pairs: ['EUR/USD', 'EUR/CAD', 'EUR/JPY'], direction: 'UP'},
+    {text: "Protocolos de última reunião do BCE mostram divergências no conselho", pairs: ['EUR/USD', 'EUR/CAD'], direction: 'DOWN'},
+    {text: "Euro se fortalece com afluxo de capital para ações europeias", pairs: ['EUR/USD', 'EUR/CAD', 'EUR/JPY'], direction: 'UP'},
+    {text: "Crise energética na Europa se intensifica, euro sob pressão", pairs: ['EUR/USD', 'EUR/CHF'], direction: 'DOWN'},
+    {text: "Grande banco francês BNP Paribas realiza lucros em euro", pairs: ['EUR/USD', 'EUR/JPY'], direction: 'DOWN'},
+    {text: "Produção industrial da Alemanha cresceu pelo terceiro mês consecutivo", pairs: ['EUR/USD', 'EUR/CAD', 'EUR/JPY'], direction: 'UP'},
+    {text: "Banco da Inglaterra manteve tom agressivo, libra sobe", pairs: ['GBP/NZD', 'GBP/CAD', 'GBP/JPY', 'GBP/USD'], direction: 'UP'},
+    {text: "Inflação no Reino Unido permanece acima do nível-alvo, apoiando a libra", pairs: ['GBP/NZD', 'GBP/CAD', 'GBP/JPY', 'GBP/USD'], direction: 'UP'},
+    {text: "Déficit orçamentário britânico foi mais amplo que o previsto", pairs: ['GBP/NZD', 'GBP/CAD', 'GBP/USD'], direction: 'DOWN'},
+    {text: "Grande fundo de cobertura de Londres fecha posições longas em libra", pairs: ['GBP/NZD', 'GBP/JPY', 'GBP/USD'], direction: 'DOWN'},
+    {text: "Pedidos industriais do Reino Unido mostraram crescimento inesperado", pairs: ['GBP/NZD', 'GBP/CAD', 'GBP/JPY', 'GBP/USD'], direction: 'UP'},
+    {text: "Instabilidade política no parlamento pressiona a libra", pairs: ['GBP/NZD', 'GBP/CHF', 'GBP/USD'], direction: 'DOWN'},
+    {text: "Sessão de Londres abriu com grandes compras de libra", pairs: ['GBP/NZD', 'GBP/JPY', 'GBP/USD'], direction: 'UP'},
+    {text: "Mercado imobiliário britânico mostra primeiros sinais de recuperação", pairs: ['GBP/NZD', 'GBP/CAD', 'GBP/USD'], direction: 'UP'},
+    {text: "Banco da Inglaterra sinalizou possível pausa no ciclo de aperto", pairs: ['GBP/NZD', 'GBP/JPY', 'GBP/USD'], direction: 'DOWN'},
+    {text: "Grande empresa petrolífera britânica anuncia fusão", pairs: ['GBP/NZD', 'GBP/USD'], direction: 'UP'},
+    {text: "Franco suíço se fortalece como fuga para a segurança", pairs: ['EUR/CHF', 'GBP/CHF', 'USD/CHF'], direction: 'DOWN'},
+    {text: "Banco Nacional Suíço intervém para enfraquecimento do franco", pairs: ['EUR/CHF', 'GBP/CHF', 'USD/CHF'], direction: 'UP'},
+    {text: "Exportação de relógios suíços mostra números recordes", pairs: ['EUR/CHF', 'USD/CHF'], direction: 'UP'},
+    {text: "Indústria farmacêutica suíça relata desenvolvimentos revolucionários", pairs: ['EUR/CHF', 'GBP/CHF'], direction: 'UP'},
+    {text: "Franco suíço enfraquece com apetite global por risco", pairs: ['EUR/CHF', 'GBP/CHF', 'USD/CHF'], direction: 'UP'},
+    {text: "Reestruturação do Credit Suisse continua pressionando o setor financeiro suíço", pairs: ['EUR/CHF', 'USD/CHF'], direction: 'DOWN'},
+    {text: "PIB suíço cresceu mais rápido que o previsto graças à farmácia", pairs: ['EUR/CHF', 'GBP/CHF', 'USD/CHF'], direction: 'UP'},
+    {text: "Banco Nacional Suíço manteve taxas sem mudanças", pairs: ['EUR/CHF', 'GBP/CHF', 'USD/CHF'], direction: null},
+    {text: "Afluxo de capital para títulos suíços se intensifica", pairs: ['EUR/CHF', 'USD/CHF'], direction: 'DOWN'},
+    {text: "Câmara de comércio suíça prevê desaceleração de exportações", pairs: ['EUR/CHF', 'GBP/CHF'], direction: 'DOWN'},
+    {text: "Índices de ações europeias negociam positivamente", pairs: ['EUR/USD', 'GBP/NZD', 'EUR/JPY'], direction: null},
+    {text: "Londres e Frankfurt aumentam volume simultaneamente", pairs: ['EUR/USD', 'GBP/NZD', 'EUR/CHF'], direction: null},
+    {text: "Bancos europeus passaram em testes de estresse com sucesso", pairs: ['EUR/USD', 'EUR/JPY', 'GBP/JPY'], direction: 'UP'},
+    {text: "Energia europeia se estabiliza após período de inverno", pairs: ['EUR/USD', 'EUR/CAD', 'EUR/CHF'], direction: 'UP'},
+    {text: "Grandes investidores europeus reequilibram carteiras em dólares", pairs: ['EUR/USD', 'GBP/USD'], direction: 'DOWN'},
+    {text: "Tribunal Europeu aprova novas sanções afetando comércio", pairs: ['EUR/USD', 'EUR/CAD', 'EUR/CHF'], direction: 'DOWN'},
+    {text: "Bolsa de Metais de Londres registra aumento de demanda por metais preciosos", pairs: ['GBP/NZD', 'GBP/CAD', 'GBP/JPY'], direction: 'UP'},
+    {text: "Companhias de seguros europeias aumentam investimentos no exterior", pairs: ['EUR/USD', 'EUR/JPY', 'GBP/JPY'], direction: 'DOWN'},
+    {text: "Cúpula da UE discute estímulos fiscais para a economia", pairs: ['EUR/USD', 'EUR/JPY'], direction: 'UP'},
+    {text: "Indústria automotiva europeia relatou crescimento em vendas de veículos elétricos", pairs: ['EUR/USD', 'EUR/CAD', 'EUR/JPY'], direction: 'UP'},
+    {text: "Banco Federal insinuou elevação mais agressiva de taxas", pairs: ['USD/CHF', 'GBP/USD', 'EUR/USD'], direction: 'UP'},
+    {text: "Dados de emprego nos EUA superaram significativamente as expectativas", pairs: ['USD/CHF', 'GBP/USD', 'EUR/USD'], direction: 'UP'},
+    {text: "IPC nos EUA desacelerou, pressão sobre o dólar", pairs: ['USD/CHF', 'GBP/USD', 'EUR/USD'], direction: 'DOWN'},
+    {text: "Grande banco de investimento americano Goldman Sachs coloca ordens de proteção", pairs: ['USD/CHF', 'EUR/USD'], direction: 'DOWN'},
+    {text: "Índice do dólar DXY quebrou nível de resistência chave", pairs: ['USD/CHF', 'GBP/USD', 'EUR/USD'], direction: 'UP'},
+    {text: "Banco Federal sinalizou possível suavização de política no próximo ano", pairs: ['USD/CHF', 'GBP/USD', 'EUR/USD'], direction: 'DOWN'},
+    {text: "Mercado de trabalho americano demonstra resiliência", pairs: ['USD/CHF', 'EUR/USD', 'GBP/USD'], direction: 'UP'},
+    {text: "Dados de vendas no varejo dos EUA decepcionaram", pairs: ['USD/CHF', 'EUR/USD'], direction: 'DOWN'},
+    {text: "Grande fundo de pensão americano aumenta ativos estrangeiros", pairs: ['USD/CHF', 'EUR/USD', 'GBP/USD'], direction: 'DOWN'},
+    {text: "Protocolo do FOMC mostrou unanimidade em combater inflação", pairs: ['USD/CHF', 'GBP/USD', 'EUR/USD'], direction: 'UP'},
+    {text: "PMI industrial americano subiu acima de 50 pontos", pairs: ['USD/CHF', 'EUR/USD', 'GBP/USD'], direction: 'UP'},
+    {text: "Dólar enfraquece com aumento do apetite por risco", pairs: ['USD/CHF', 'GBP/USD', 'EUR/USD'], direction: 'DOWN'},
+    {text: "Novos pedidos de seguro desemprego nos EUA caíram", pairs: ['USD/CHF', 'EUR/USD'], direction: 'UP'},
+    {text: "Dívida americana superou novo nível psicológico", pairs: ['USD/CHF', 'EUR/USD', 'GBP/USD'], direction: 'DOWN'},
+    {text: "Grandes empresas de tecnologia americana reportaram lucros", pairs: ['USD/CHF', 'EUR/USD'], direction: 'UP'},
+    {text: "Mercado de títulos dos EUA registra saída de fundos", pairs: ['USD/CHF', 'EUR/USD'], direction: 'DOWN'},
+    {text: "Banco do Canadá elevou taxa em 25 pontos base", pairs: ['GBP/CAD', 'EUR/CAD', 'USD/CAD'], direction: 'DOWN'},
+    {text: "Preços de petróleo WTI crescem, apoiando o dólar canadense", pairs: ['GBP/CAD', 'EUR/CAD', 'USD/CAD'], direction: 'DOWN'},
+    {text: "Estatísticas canadenses mostram crescimento do PIB mais forte que o previsto", pairs: ['GBP/CAD', 'EUR/CAD', 'USD/CAD'], direction: 'DOWN'},
+    {text: "Grande fundo de pensão canadense CPP Investments coloca ordens de proteção", pairs: ['GBP/CAD', 'EUR/CAD'], direction: 'UP'},
+    {text: "Mercado imobiliário canadense mostra desaceleração", pairs: ['GBP/CAD', 'EUR/CAD'], direction: 'UP'},
+    {text: "Exportação canadense de madeira enfrenta barreiras comerciais", pairs: ['GBP/CAD', 'EUR/CAD'], direction: 'UP'},
+    {text: "Preços de gás natural crescem, apoiando economia canadense", pairs: ['GBP/CAD', 'EUR/CAD', 'USD/CAD'], direction: 'DOWN'},
+    {text: "Saldo comercial canadense melhorou graças a recursos energéticos", pairs: ['GBP/CAD', 'EUR/CAD', 'USD/CAD'], direction: 'DOWN'},
+    {text: "Banco do Canadá sinalizou pausa no ciclo de aperto", pairs: ['GBP/CAD', 'EUR/CAD', 'USD/CAD'], direction: 'UP'},
+    {text: "Grande empresa de mineração canadense anuncia fusão", pairs: ['GBP/CAD', 'USD/CAD'], direction: 'DOWN'},
+    {text: "Wall Street abriu com ganhos em reportes corporativos", pairs: ['USD/CHF', 'EUR/USD', 'GBP/USD'], direction: null},
+    {text: "Mercados norte-americanos demonstram atividade elevada", pairs: ['USD/CHF', 'EUR/USD', 'GBP/USD'], direction: null},
+    {text: "Investidores americanos reequilibram carteiras ativamente", pairs: ['USD/CHF', 'EUR/USD', 'GBP/USD'], direction: null},
+    {text: "NYSE e NASDAQ registram volumes recordes de negociação", pairs: ['USD/CHF', 'EUR/USD', 'GBP/USD'], direction: null},
+    {text: "Títulos do Tesouro americano demonstram aumento de rendimento", pairs: ['USD/CHF', 'EUR/USD'], direction: 'UP'},
+    {text: "Sessão norte-americana traz volatilidade elevada", pairs: ['USD/CHF', 'EUR/USD', 'GBP/USD'], direction: null},
+    {text: "Grandes varejistas americanos relatam crescimento de vendas", pairs: ['USD/CHF', 'EUR/USD'], direction: 'UP'},
+    {text: "Setor de energia americano aumenta produção", pairs: ['GBP/CAD', 'EUR/CAD', 'USD/CAD'], direction: null},
+    {text: "Investidores fogem para o dólar em instabilidade global", pairs: ['USD/CHF', 'GBP/USD', 'EUR/USD'], direction: 'UP'},
+    {text: "Bancos centrais norte-americano e canadense coordenam política cambial", pairs: ['GBP/CAD', 'EUR/USD'], direction: null},
 ];
 
-const TRADING_PAIRS = [
-    { name: 'EUR/USD', signal: 'UP' },
-    { name: 'GBP/USD', signal: 'DOWN' },
-    { name: 'USD/JPY', signal: 'UP' },
-    { name: 'USD/CHF', signal: 'DOWN' },
-    { name: 'AUD/USD', signal: 'UP' },
-    { name: 'USD/CAD', signal: 'DOWN' },
-    { name: 'NZD/USD', signal: 'UP' },
-    { name: 'EUR/GBP', signal: 'DOWN' },
-    { name: 'EUR/JPY', signal: 'UP' },
-    { name: 'GBP/JPY', signal: 'DOWN' }
+const ENTRY_PHRASES = [
+    "Ponto de entrada identificado. Formando sinal de negociação...",
+    "Momento ideal de entrada encontrado. Preparando recomendação...",
+    "Análise confirmada. Enviando sinal para execução...",
+    "Padrão confirmado. Fixando ponto de entrada...",
+    "Todos os indicadores convergem. Gerando sinal de negociação...",
+    "Zona de entrada definida com alta precisão...",
+    "Confluência de fatores aponta entrada clara...",
+    "Modelo de previsão gerou sinal forte...",
+    "Algoritmo detectou configuração altamente provável...",
+    "Condições de mercado amadurecidas para entrada em posição...",
 ];
 
-// ==========================================
-// ЛОГИКА АВТОРИЗАЦИИ И ХРАНИЛИЩА
-// ==========================================
+const RESULT_PHRASES = [
+    "Negociação fechada. Analisando resultado...",
+    "Posição fechada. Atualizando estatísticas...",
+    "Ciclo de negociação concluído. Passando para próxima análise...",
+    "Negociação executada. Verificando precisão da previsão...",
+    "Resultado fixado. Preparando próximo sinal...",
+    "Negociação finalizada. Recalculando modelos...",
+    "Posição fechada por expiração. Atualizando dados...",
+    "Operação comercial concluída. Digitalizando novas oportunidades...",
+    "Resultado de negociação registrado. Analisando mercado adiante...",
+    "Negociação fechada. Ajustando algoritmos...",
+];
 
-function validateKey(key) {
-    return ACCESS_KEYS.hasOwnProperty(key);
+const ACCESS_KEYS = {
+    'MAT400': { limit: 1 * 60 * 60 * 1000, name: 'MAT400 (1 hora)', hours: 1 },
+    'MAT500': { limit: 2 * 60 * 60 * 1000, name: 'MAT500 (2 horas)', hours: 2 },
+    'MAT600': { limit: 3 * 60 * 60 * 1000, name: 'MAT600 (3 horas)', hours: 3 },
+    'MAT800': { limit: 4 * 60 * 60 * 1000, name: 'MAT800 (4 horas)', hours: 4 },
+    'MAT1000': { limit: 5 * 60 * 60 * 1000, name: 'MAT1000 (5 horas)', hours: 5 }
+};
+
+var session = {
+    name: '',
+    accessKey: '',
+    signalsUsed: 0,
+    limit: 0,
+    isActive: false,
+    currentAsset: null,
+    currentDirection: null,
+    startTime: null,
+    uptimeInterval: null,
+    statsInterval: null,
+    botCycleInterval: null,
+    timerInterval: null,
+    isVIP: true,
+    accessEndTime: null,
+    accessCheckInterval: null,
+    usedPhraseIndices: [],
+    cycleCount: 0
+};
+
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function getKeyDuration(key) {
-    if (!ACCESS_KEYS.hasOwnProperty(key)) return null;
-    return ACCESS_KEYS[key].duration;
+function random(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function saveSession(key, userName) {
-    const now = Date.now();
-    const expiresAt = now + getKeyDuration(key);
+function addMessage(text, type) {
+    const chat = document.getElementById('chatMessages');
+    const msg = document.createElement('div');
+    msg.className = 'message ' + (type || 'bot');
+    msg.innerHTML = text;
+    chat.appendChild(msg);
     
-    const session = {
-        key: key,
-        userName: userName || 'User',
-        startedAt: now,
-        expiresAt: expiresAt,
-        signalCount: 0
-    };
-    
-    localStorage.setItem('tradingSession', JSON.stringify(session));
-    return session;
-}
-
-function getSession() {
-    const sessionStr = localStorage.getItem('tradingSession');
-    if (!sessionStr) return null;
-    
-    const session = JSON.parse(sessionStr);
-    const now = Date.now();
-    
-    // Проверяем истекла ли сессия
-    if (now > session.expiresAt) {
-        localStorage.removeItem('tradingSession');
-        return null;
+    while(chat.children.length > 100) {
+        chat.removeChild(chat.firstChild);
     }
-    
-    return session;
+
+    chat.scrollTop = chat.scrollHeight;
 }
 
-function clearSession() {
-    localStorage.removeItem('tradingSession');
+function setStatus(text) {
+    document.getElementById('statusInfo').textContent = text;
 }
 
-function getRemainingTime(session) {
-    const now = Date.now();
-    const remaining = session.expiresAt - now;
-    
-    if (remaining <= 0) {
-        return null;
-    }
-    
-    const hours = Math.floor(remaining / (1000 * 60 * 60));
-    const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
-    
-    return {
-        hours,
-        minutes,
-        seconds,
-        remaining
-    };
+function setActive(text) {
+    document.getElementById('activeInfo').textContent = text;
 }
-
-function formatTime(hours, minutes, seconds) {
-    return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-}
-
-// ==========================================
-// ЛОГИКА ИНТЕРФЕЙСА
-// ==========================================
-
-const loginScreen = document.getElementById('loginScreen');
-const terminalScreen = document.getElementById('terminalScreen');
-const loginForm = document.getElementById('loginForm');
-const errorMessage = document.getElementById('errorMessage');
-const successMessage = document.getElementById('successMessage');
-const chatMessages = document.getElementById('chatMessages');
-const sessionNameEl = document.getElementById('sessionName');
-const sessionAccessEl = document.getElementById('sessionAccess');
-const sessionSignalsEl = document.getElementById('sessionSignals');
-const trialStatusEl = document.getElementById('trialStatus');
-const activeInfoEl = document.getElementById('activeInfo');
-const statusInfoEl = document.getElementById('statusInfo');
-const renewButton = document.getElementById('renewButton');
-const uptimeEl = document.getElementById('uptime');
-const lightBtn = document.getElementById('lightBtn');
-const darkBtn = document.getElementById('darkBtn');
-
-let currentSession = null;
-let sessionStartTime = null;
-let signalCount = 0;
-let timerInterval = null;
-
-// ==========================================
-// ФОРМА ВХОДА
-// ==========================================
-
-loginForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const accessKey = document.getElementById('accessKey').value.toUpperCase();
-    const userName = document.getElementById('userName').value;
-    
-    errorMessage.style.display = 'none';
-    successMessage.style.display = 'none';
-    
-    if (!validateKey(accessKey)) {
-        errorMessage.textContent = 'Invalid access key. Please use MAT400, MAT500, MAT600, MAT800, or MAT1000.';
-        errorMessage.style.display = 'block';
-        return;
-    }
-    
-    // Сохраняем сессию
-    currentSession = saveSession(accessKey, userName);
-    sessionStartTime = Date.now();
-    signalCount = 0;
-    
-    // Показываем терминал
-    loginScreen.style.display = 'none';
-    terminalScreen.classList.add('active');
-    
-    // Обновляем информацию
-    updateSessionInfo();
-    startSessionTimer();
-    initializeTerminal();
-    
-    // Показываем сообщение об успехе
-    successMessage.textContent = `Welcome, ${userName || 'User'}! Terminal initialized.`;
-    successMessage.style.display = 'block';
-    
-    // Очищаем форму
-    loginForm.reset();
-});
 
 function updateSessionInfo() {
-    if (!currentSession) return;
-    
-    sessionNameEl.textContent = currentSession.userName;
-    sessionAccessEl.textContent = ACCESS_KEYS[currentSession.key].label;
-    sessionSignalsEl.textContent = currentSession.signalCount;
-    
-    // Обновляем статус и таймер
-    trialStatusEl.innerHTML = '<span class="status-badge active">VIP</span><div class="trial-timer" id="trialTimer">00:00:00</div>';
+    document.getElementById('sessionName').textContent = session.name;
+    var accessLabel = ACCESS_KEYS[session.accessKey] ? ACCESS_KEYS[session.accessKey].name : 'Desconhecido';
+    document.getElementById('sessionAccess').textContent = accessLabel;
+    document.getElementById('sessionSignals').textContent = session.signalsUsed;
 }
 
-function startSessionTimer() {
-    if (timerInterval) clearInterval(timerInterval);
-    
-    timerInterval = setInterval(() => {
-        if (!currentSession) return;
-        
-        const remaining = getRemainingTime(currentSession);
-        
-        if (!remaining || remaining.remaining <= 0) {
-            // Сессия истекла
-            clearInterval(timerInterval);
-            sessionExpired();
-            return;
-        }
-        
-        // Обновляем таймер
-        const timeStr = formatTime(remaining.hours, remaining.minutes, remaining.seconds);
-        const timerEl = document.getElementById('trialTimer');
-        if (timerEl) {
-            timerEl.textContent = timeStr;
-        }
-        
-        // Обновляем uptime
-        const uptime = Date.now() - sessionStartTime;
-        const uptimeHours = Math.floor(uptime / (1000 * 60 * 60));
-        const uptimeMinutes = Math.floor((uptime % (1000 * 60 * 60)) / (1000 * 60));
-        const uptimeSeconds = Math.floor((uptime % (1000 * 60)) / 1000);
-        
-        uptimeEl.textContent = formatTime(uptimeHours, uptimeMinutes, uptimeSeconds);
-    }, 1000);
+function isAccessExpired() {
+    return Date.now() > session.accessEndTime;
 }
 
-function sessionExpired() {
-    clearSession();
-    currentSession = null;
+function getRemainingAccessTime() {
+    var remaining = session.accessEndTime - Date.now();
+    return remaining > 0 ? remaining : 0;
+}
+
+function formatTime(ms) {
+    var totalSeconds = Math.floor(ms / 1000);
+    var hours = Math.floor(totalSeconds / 3600);
+    var minutes = Math.floor((totalSeconds % 3600) / 60);
+    var seconds = totalSeconds % 60;
+    return String(hours).padStart(2, '0') + ':' + String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0');
+}
+
+function getRandomPhrase(phrasesArray) {
+    var idx = random(0, phrasesArray.length - 1);
+    return phrasesArray[idx];
+}
+
+function getSmartRegionalPhrase() {
+    var idx = random(0, REGIONAL_PHRASES.length - 1);
+    var phrase = REGIONAL_PHRASES[idx];
+    var pair = phrase.pairs[random(0, phrase.pairs.length - 1)];
     
-    // Показываем форму входа
-    terminalScreen.classList.remove('active');
-    loginScreen.style.display = 'flex';
+    return {
+        text: phrase.text,
+        pair: pair,
+        direction: phrase.direction
+    };
+}
+
+function updateUptime() {
+    var elapsed = Date.now() - session.startTime;
+    var hours = Math.floor(elapsed / 3600000);
+    var minutes = Math.floor((elapsed % 3600000) / 60000);
+    var seconds = Math.floor((elapsed % 60000) / 1000);
+    var formatted = String(hours).padStart(2, '0') + ':' + String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0');
+    document.getElementById('uptime').textContent = formatted;
+}
+
+function updateStats() {
+    var accuracy = Math.floor(Math.random() * (96 - 85 + 1)) + 85;
+    document.getElementById('accuracy').textContent = accuracy + '%';
+    var latency = Math.floor(Math.random() * (25 - 8 + 1)) + 8;
+    document.getElementById('latency').textContent = latency + 'ms';
+    var nextUpdate = Math.floor(Math.random() * (10000 - 2000 + 1)) + 2000;
+    setTimeout(updateStats, nextUpdate);
+}
+
+function startSystemStats() {
+    session.startTime = Date.now();
+    session.uptimeInterval = setInterval(updateUptime, 1000);
+    updateStats();
+}
+
+function updateVIPStatus() {
+    var container = document.getElementById('vipStatus');
+    var remaining = getRemainingAccessTime();
+    container.innerHTML = '<span class="status-badge vip">VIP</span><div class="vip-timer">Expira em: ' + formatTime(remaining) + '</div>';
+}
+
+function checkAccessExpiration() {
+    if (isAccessExpired()) {
+        addMessage('<strong>Seu acesso VIP expirou. Por favor, insira uma nova chave de acesso para continuar.</strong>');
+        setStatus('Acesso expirado');
+        document.getElementById('renewButton').style.display = 'block';
+        if (session.botCycleInterval) {
+            clearTimeout(session.botCycleInterval);
+        }
+        return true;
+    }
+    return false;
+}
+
+async function runBotCycle() {
+    if (checkAccessExpiration()) return;
+    if (session.isActive) return;
+
+    session.isActive = true;
+    session.cycleCount++;
+    setStatus('Analisando mercado...');
+
+    var analysisCount = random(3, 5);
+    var usedIndices = new Set();
+
+    for (var i = 0; i < analysisCount; i++) {
+        if (checkAccessExpiration()) return;
+        
+        var idx;
+        do {
+            idx = random(0, ANALYZING_PHRASES.length - 1);
+        } while (usedIndices.has(idx) && usedIndices.size < ANALYZING_PHRASES.length);
+        usedIndices.add(idx);
+
+        addMessage(ANALYZING_PHRASES[idx]);
+        setActive('Digitalizando... ' + (i + 1) + '/' + analysisCount);
+        await delay(random(2000, 4000));
+    }
+
+    if (checkAccessExpiration()) return;
+
+    var regional = getSmartRegionalPhrase();
+    addMessage(regional.text);
+    session.currentAsset = regional.pair;
+    session.currentDirection = regional.direction;
+    setActive(regional.pair + ' — analisando');
+    await delay(random(2000, 3500));
+
+    if (checkAccessExpiration()) return;
+
+    var entryPhrase = ENTRY_PHRASES[random(0, ENTRY_PHRASES.length - 1)];
+    addMessage('<strong>' + entryPhrase + '</strong>');
+    setStatus('Ponto de entrada identificado');
+    await delay(random(1500, 2500));
+
+    if (checkAccessExpiration()) return;
+
+    var direction = session.currentDirection || (Math.random() < 0.5 ? 'COMPRA' : 'VENDA');
+    var directionClass = direction === 'COMPRA' ? 'up' : 'down';
+    var dirArrow = direction === 'COMPRA' ? '&#8593;' : '&#8595;';
+
+    var timerId = 'entryTimer_' + session.cycleCount;
+    var signalHtml = '<div class="signal-info">' +
+        '<div class="signal-pair">' + session.currentAsset + '</div>' +
+        '<div style="opacity: 0.7; font-size: 14px;">Expiração: 1 minuto</div>' +
+        '<div class="signal-direction ' + directionClass + '">' + dirArrow + ' ' + direction + ' ' + dirArrow + '</div>' +
+        '<div style="font-size: 13px; opacity: 0.8; margin-top: 8px;">Janela de entrada: <strong>20 segundos</strong></div>' +
+        '<div class="timer" id="' + timerId + '">00:20</div>' +
+        '</div>';
+
+    addMessage(signalHtml, 'bot strong-signal');
+    setStatus('Sinal ativo — 20s de entrada');
+    setActive(session.currentAsset + ' — ' + direction);
+
+    await runEntryTimer(20, timerId);
+
+    if (checkAccessExpiration()) return;
+
+    addMessage('<strong>Janela de entrada fechada. Posição travada. Aguardando expiração (1 minuto)...</strong>');
+    setStatus('Posição ativa — 60s');
+    await delay(1000);
+
+    await runExpirationTimer(60);
+
+    if (checkAccessExpiration()) return;
+
+    session.signalsUsed++;
+    updateSessionInfo();
+
+    var resultPhrase = RESULT_PHRASES[random(0, RESULT_PHRASES.length - 1)];
+    addMessage(resultPhrase);
+    setStatus('Ocioso');
+    setActive('—');
+    session.isActive = false;
+    session.currentAsset = null;
+    session.currentDirection = null;
+
+    await delay(random(2000, 4000));
+
+    if (checkAccessExpiration()) return;
+
+    runBotCycle();
+}
+
+async function runEntryTimer(seconds, timerId) {
+    return new Promise(resolve => {
+        var remaining = seconds;
+        
+        var interval = setInterval(function() {
+            remaining--;
+            
+            var timerEl = document.getElementById(timerId);
+            if (timerEl) {
+                timerEl.textContent = '00:' + String(remaining).padStart(2, '0');
+                if (remaining <= 5) {
+                    timerEl.classList.add('urgent');
+                }
+            }
+            
+            setActive(session.currentAsset + ' — ENTRADA ' + remaining + 's');
+
+            if (remaining <= 0) {
+                clearInterval(interval);
+                resolve();
+            }
+        }, 1000);
+    });
+}
+
+async function runExpirationTimer(seconds) {
+    return new Promise(resolve => {
+        var remaining = seconds;
+        
+        var interval = setInterval(function() {
+            remaining--;
+            setActive(session.currentAsset + ' — expira em ' + remaining + 's');
+
+            if (remaining <= 0) {
+                clearInterval(interval);
+                resolve();
+            }
+        }, 1000);
+    });
+}
+
+async function initializeChat() {
+    await delay(1500);
+    addMessage('Bem-vindo, <strong>' + session.name + '</strong>. Sou o bot de negociação premium do Mateus Midas.');
+    await delay(2000);
     
-    errorMessage.textContent = 'Session expired. Please enter a new access key.';
-    errorMessage.style.display = 'block';
+    addMessage('Acesso VIP ativado. Você tem sinais ilimitados de negociação durante sua sessão.');
+    await delay(1500);
     
-    // Очищаем чат
-    chatMessages.innerHTML = '<div class="message system">Initializing neural core...</div>';
+    addMessage('Iniciando digitalização autônoma do mercado. Vou analisar continuamente o mercado e fornecer sinais de negociação.');
+    await delay(2000);
+    addMessage('Cada sinal inclui: par de moedas, direção (COMPRA/VENDA) e uma janela de entrada de 20 segundos. Após entrada, a negociação expira em 1 minuto.');
+    await delay(1500);
+    addMessage('<strong>Iniciando análise...</strong>');
+    await delay(1000);
+
+    startSystemStats();
+    
+    session.accessCheckInterval = setInterval(updateVIPStatus, 1000);
+    updateVIPStatus();
+
+    runBotCycle();
+}
+
+function handleLogin(e) {
+    if (e) e.preventDefault();
+    
+    var keyInput = document.getElementById('accessKey');
+    var nameInput = document.getElementById('userName');
+    var errorDiv = document.getElementById('errorMessage');
+    var successDiv = document.getElementById('successMessage');
+
+    var key = keyInput.value.trim().toUpperCase();
+    var name = nameInput.value.trim();
+
+    if (!name) name = 'Trader';
+
+    errorDiv.style.display = 'none';
+    successDiv.style.display = 'none';
+
+    if (ACCESS_KEYS[key]) {
+        session.accessKey = key;
+        session.name = name;
+        session.limit = ACCESS_KEYS[key].limit;
+        session.signalsUsed = 0;
+        session.isVIP = true;
+        session.accessEndTime = Date.now() + ACCESS_KEYS[key].limit;
+
+        localStorage.setItem('aura_vip_key', key);
+        localStorage.setItem('aura_vip_start', Date.now().toString());
+        localStorage.setItem('aura_vip_end', session.accessEndTime.toString());
+
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('terminalScreen').classList.add('active');
+        updateSessionInfo();
+        initializeChat();
+    } else {
+        errorDiv.textContent = 'Chave de acesso inválida.';
+        errorDiv.style.display = 'block';
+    }
 }
 
 function renewKey() {
-    sessionExpired();
+    location.reload();
 }
 
-// ==========================================
-// ТЕРМИНАЛ ЛОГИКА
-// ==========================================
+window.addEventListener('load', function() {
+    var loginBtn = document.querySelector('.login-button');
+    var form = document.getElementById('loginForm');
 
-function initializeTerminal() {
-    chatMessages.innerHTML = '<div class="message system">Initializing neural core...</div>';
-    activeInfoEl.textContent = '—';
-    statusInfoEl.textContent = 'Idle';
-    
-    // Добавляем сообщение о готовности
-    setTimeout(() => {
-        addSystemMessage('Neural core initialized successfully');
-        addSystemMessage('Connecting to data sources...');
-        setTimeout(() => {
-            addSystemMessage('✓ All connections established');
-            startGeneratingSignals();
-        }, 2000);
-    }, 1000);
-}
+    loginBtn.addEventListener('click', handleLogin);
+    form.addEventListener('submit', handleLogin);
 
-function addSystemMessage(text) {
-    const messageDiv = document.createElement('div');
-    messageDiv.className = 'message system';
-    messageDiv.textContent = text;
-    chatMessages.appendChild(messageDiv);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-}
+    document.getElementById('lightBtn').addEventListener('click', function() {
+        document.body.className = 'light';
+        document.getElementById('lightBtn').classList.add('active');
+        document.getElementById('darkBtn').classList.remove('active');
+    });
 
-function addBotMessage(text, isSignal = false) {
-    const messageDiv = document.createElement('div');
-    messageDiv.className = 'message bot' + (isSignal ? ' strong-signal' : '');
-    messageDiv.textContent = text;
-    chatMessages.appendChild(messageDiv);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-}
+    document.getElementById('darkBtn').addEventListener('click', function() {
+        document.body.className = 'dark';
+        document.getElementById('darkBtn').classList.add('active');
+        document.getElementById('lightBtn').classList.remove('active');
+    });
 
-function addAnalysisMessage() {
-    const phrase = ANALYZING_PHRASES[Math.floor(Math.random() * ANALYZING_PHRASES.length)];
-    addBotMessage(phrase);
-}
-
-function generateSignal() {
-    const pair = TRADING_PAIRS[Math.floor(Math.random() * TRADING_PAIRS.length)];
-    const direction = pair.signal;
-    const confidence = Math.floor(Math.random() * 20) + 80; // 80-100%
+    var storedKey = localStorage.getItem('aura_vip_key');
+    var storedEnd = parseInt(localStorage.getItem('aura_vip_end') || '0');
     
-    const signalDiv = document.createElement('div');
-    signalDiv.className = 'signal-info';
-    
-    const directionText = direction === 'UP' ? '↑ BUY' : '↓ SELL';
-    const directionClass = direction === 'UP' ? 'up' : 'down';
-    
-    let durationMinutes = Math.floor(Math.random() * 20) + 10; // 10-30 минут
-    let durationSeconds = Math.floor(Math.random() * 60);
-    
-    signalDiv.innerHTML = `
-        <div class="signal-pair">${pair.name}</div>
-        <div class="signal-direction ${directionClass}">${directionText}</div>
-        <div>Confidence: ${confidence}%</div>
-        <div class="timer">${String(durationMinutes).padStart(2, '0')}:${String(durationSeconds).padStart(2, '0')}</div>
-    `;
-    
-    chatMessages.appendChild(signalDiv);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-    
-    // Обновляем статистику
-    signalCount++;
-    if (currentSession) {
-        currentSession.signalCount = signalCount;
-        sessionSignalsEl.textContent = signalCount;
-    }
-    
-    // Запускаем обратный отсчёт таймера
-    startSignalTimer(durationMinutes * 60 + durationSeconds, signalDiv);
-}
-
-function startSignalTimer(seconds, signalDiv) {
-    let remaining = seconds;
-    const timerEl = signalDiv.querySelector('.timer');
-    
-    const countdownInterval = setInterval(() => {
-        remaining--;
+    if (storedKey && Date.now() < storedEnd) {
+        session.accessKey = storedKey;
+        session.accessEndTime = storedEnd;
+        session.isVIP = true;
+        session.limit = ACCESS_KEYS[storedKey].limit;
+        session.signalsUsed = 0;
         
-        if (remaining <= 0) {
-            clearInterval(countdownInterval);
-            return;
-        }
+        var nameInput = document.getElementById('userName');
+        nameInput.value = 'Trader';
+        session.name = 'Trader';
         
-        const mins = Math.floor(remaining / 60);
-        const secs = remaining % 60;
-        timerEl.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
-    }, 1000);
-}
-
-function startGeneratingSignals() {
-    // Первый анализ
-    addAnalysisMessage();
-    
-    // Генерируем сигналы с интервалом
-    setInterval(() => {
-        if (!currentSession) return;
-        
-        const remaining = getRemainingTime(currentSession);
-        if (!remaining || remaining.remaining <= 0) {
-            return;
-        }
-        
-        setTimeout(() => {
-            if (!currentSession) return;
-            addAnalysisMessage();
-        }, 3000);
-        
-        setTimeout(() => {
-            if (!currentSession) return;
-            generateSignal();
-        }, 8000);
-    }, 25000);
-    
-    // Периодические региональные сообщения
-    setInterval(() => {
-        if (!currentSession) return;
-        
-        const remaining = getRemainingTime(currentSession);
-        if (!remaining || remaining.remaining <= 0) {
-            return;
-        }
-        
-        const phrase = REGIONAL_PHRASES[Math.floor(Math.random() * REGIONAL_PHRASES.length)];
-        addBotMessage(phrase);
-        activeInfoEl.textContent = 'Analyzing regional data...';
-        
-        setTimeout(() => {
-            activeInfoEl.textContent = '—';
-        }, 5000);
-    }, 60000);
-    
-    // Обновляем статус
-    statusInfoEl.textContent = 'Monitoring markets...';
-}
-
-// ==========================================
-// ТЕМА
-// ==========================================
-
-lightBtn.addEventListener('click', () => {
-    document.body.classList.remove('dark');
-    document.body.classList.add('light');
-    lightBtn.classList.add('active');
-    darkBtn.classList.remove('active');
-    localStorage.setItem('theme', 'light');
-});
-
-darkBtn.addEventListener('click', () => {
-    document.body.classList.remove('light');
-    document.body.classList.add('dark');
-    darkBtn.classList.add('active');
-    lightBtn.classList.remove('active');
-    localStorage.setItem('theme', 'dark');
-});
-
-// ==========================================
-// ИНИЦИАЛИЗАЦИЯ
-// ==========================================
-
-window.addEventListener('load', () => {
-    // Восстанавливаем тему
-    const theme = localStorage.getItem('theme') || 'dark';
-    if (theme === 'light') {
-        document.body.classList.remove('dark');
-        document.body.classList.add('light');
-        lightBtn.classList.add('active');
-        darkBtn.classList.remove('active');
-    }
-    
-    // Проверяем наличие активной сессии
-    const existingSession = getSession();
-    if (existingSession) {
-        currentSession = existingSession;
-        sessionStartTime = Date.now();
-        signalCount = existingSession.signalCount;
-        
-        loginScreen.style.display = 'none';
-        terminalScreen.classList.add('active');
-        
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('terminalScreen').classList.add('active');
         updateSessionInfo();
-        startSessionTimer();
+        initializeChat();
     }
 });
-
-// Проверяем сессию каждые 10 секунд
-setInterval(() => {
-    if (currentSession) {
-        const session = getSession();
-        if (!session) {
-            sessionExpired();
-        }
-    }
-}, 10000);
     </script>
 </body>
 </html>
