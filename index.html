@@ -5,11 +5,714 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Terminal de Negociação Mateus Midas</title>
     <style>
-        /* ... (Existing CSS remains unchanged) ... */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+            -webkit-font-smoothing: antialiased;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        body.light {
+            background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 50%, #bcccdc 100%);
+            color: #1a202c;
+        }
+
+        body.dark {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            color: #f1f5f9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 6px 10px 4px;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .login-screen {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            width: 100%;
+            overflow-y: auto;
+        }
+
+        .login-box {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            padding: 50px 40px;
+            border-radius: 24px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.1);
+            max-width: 450px;
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            margin: auto;
+        }
+
+        body.dark .login-box {
+            background: rgba(30, 41, 59, 0.7);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .login-logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #4a9d9c 0%, #5eb3b3 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            font-weight: bold;
+            color: white;
+            margin: 0 auto 20px;
+        }
+
+        .login-title {
+            font-size: 28px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .login-subtitle {
+            text-align: center;
+            opacity: 0.7;
+            margin-bottom: 40px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        .input-label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            opacity: 0.8;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid rgba(74, 157, 156, 0.3);
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s;
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        body.dark .input-field {
+            background: rgba(15, 20, 25, 0.5);
+            color: #e8e8e8;
+            border-color: rgba(74, 157, 156, 0.3);
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #4a9d9c;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        body.dark .input-field:focus {
+            background: rgba(15, 20, 25, 0.8);
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #4a9d9c 0%, #5eb3b3 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .login-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(74, 157, 156, 0.3);
+        }
+
+        .error-message {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+            font-size: 14px;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .success-message {
+            background: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+            font-size: 14px;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .terminal-screen {
+            display: none;
+            flex-direction: column;
+            flex: 1;
+            min-height: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .terminal-screen.active {
+            display: flex;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            padding: 12px 18px;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            flex-shrink: 0;
+        }
+
+        body.dark .header {
+            background: rgba(30, 41, 59, 0.6);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #4a9d9c 0%, #5eb3b3 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .logo-text h1 {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .logo-text p {
+            font-size: 14px;
+            opacity: 0.7;
+        }
+
+        .theme-toggle {
+            display: flex;
+            gap: 10px;
+            background: rgba(0, 0, 0, 0.05);
+            padding: 5px;
+            border-radius: 10px;
+        }
+
+        body.dark .theme-toggle {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .theme-btn {
+            padding: 8px 16px;
+            border: none;
+            background: transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .theme-btn.active {
+            background: #4a9d9c;
+            color: white;
+        }
+
+        .main-content {
+            display: flex;
+            gap: 12px;
+            flex: 1;
+            min-height: 0;
+            overflow: hidden;
+        }
+
+        .chat-section {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            min-height: 0;
+            overflow: hidden;
+        }
+
+        .info-panel {
+            width: 320px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+            overflow-y: auto;
+        }
+
+        .chat-messages {
+            flex: 1;
+            min-height: 0;
+            overflow-y: auto;
+            margin-bottom: 10px;
+            padding-right: 8px;
+        }
+
+        .message {
+            margin-bottom: 10px;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message.system {
+            font-weight: 600;
+            opacity: 0.8;
+            font-size: 15px;
+        }
+
+        .message.bot {
+            background: rgba(74, 157, 156, 0.08);
+            padding: 8px 12px;
+            border-radius: 14px 14px 14px 4px;
+            border-left: 3px solid #4a9d9c;
+            max-width: 85%;
+            font-size: 14px;
+        }
+
+        .message.bot.strong-signal {
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.15) 0%, rgba(245, 158, 11, 0.15) 100%);
+            border-left: 3px solid #f59e0b;
+            box-shadow: 0 0 15px rgba(251, 191, 36, 0.2);
+        }
+
+        .message.user {
+            background: linear-gradient(135deg, #4a9d9c 0%, #5eb3b3 100%);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 14px 14px 4px 14px;
+            margin-left: auto;
+            margin-right: 0;
+            max-width: 70%;
+            box-shadow: 0 2px 8px rgba(74, 157, 156, 0.3);
+            font-size: 14px;
+        }
+
+        .signal-info {
+            margin: 8px 0;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        body.dark .signal-info {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .signal-pair {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+
+        .signal-direction {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 6px 0;
+        }
+
+        .signal-direction.up {
+            color: #10b981;
+        }
+
+        .signal-direction.down {
+            color: #ef4444;
+        }
+
+        .timer {
+            font-size: 26px;
+            font-weight: bold;
+            text-align: center;
+            margin: 8px 0;
+            color: #4a9d9c;
+            font-family: 'Courier New', monospace;
+        }
+
+        .timer.urgent {
+            color: #ef4444;
+            animation: pulse-timer 1s infinite;
+        }
+
+        @keyframes pulse-timer {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .renew-button {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 15px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .renew-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(239, 68, 68, 0.4);
+        }
+
+        .platform-badge {
+            background: linear-gradient(135deg, #4a9d9c 0%, #5eb3b3 100%);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 13px;
+            box-shadow: 0 4px 16px rgba(74, 157, 156, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .connection-list {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .connection-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            padding: 3px 0;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #6b7280;
+        }
+
+        .status-dot.active {
+            background: #10b981;
+            box-shadow: 0 0 8px rgba(16, 185, 129, 0.6);
+            animation: pulse-dot 2s infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .system-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+        }
+
+        .stat-label {
+            opacity: 0.7;
+        }
+
+        .stat-value {
+            font-weight: 600;
+            color: #4a9d9c;
+            font-family: 'Courier New', monospace;
+        }
+
+        .info-section {
+            margin-bottom: 10px;
+        }
+
+        .info-section h3 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            opacity: 0.7;
+        }
+
+        .info-content {
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .info-divider {
+            height: 1px;
+            background: rgba(0, 0, 0, 0.1);
+            margin: 10px 0;
+        }
+
+        body.dark .info-divider {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 6px;
+            opacity: 0.6;
+            font-size: 12px;
+            flex-shrink: 0;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        .status-badge.vip {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .status-badge.active {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .vip-timer {
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            color: #10b981;
+            margin-top: 5px;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #4a9d9c;
+            border-radius: 10px;
+        }
+
+        @media (max-width: 968px) {
+            /* ... (Existing media queries remain unchanged) ... */
+        }
+
+        @media (max-width: 640px) {
+            /* ... (Existing media queries remain unchanged) ... */
+        }
     </style>
 </head>
 <body class="dark">
-    <!-- ... (Existing HTML remains unchanged) ... -->
+    <div class="login-screen" id="loginScreen">
+        <div class="login-box">
+            <div class="login-logo">MM</div>
+            <h2 class="login-title">Mateus Midas Trading Terminal</h2>
+            <p class="login-subtitle">Bem-vindo ao Mateus Midas — seu assistente de negociação com IA alimentado pessoalmente</p>
+
+            <form id="loginForm">
+                <div class="input-group">
+                    <label class="input-label">Chave de Acesso VIP</label>
+                    <input type="text" id="accessKey" class="input-field" required>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Como posso chamá-lo?</label>
+                    <input type="text" id="userName" class="input-field">
+                </div>
+
+                <button type="submit" class="login-button">Entrar no Terminal de Negociação</button>
+
+                <div id="errorMessage" style="display: none;" class="error-message"></div>
+                <div id="successMessage" style="display: none;" class="success-message"></div>
+            </form>
+        </div>
+    </div>
+
+    <div class="terminal-screen container" id="terminalScreen">
+        <div class="header">
+            <div class="logo-section">
+                <div class="logo">MM</div>
+                <div class="logo-text">
+                    <h1>Mateus Midas Trading Terminal</h1>
+                    <p>Assistente de negociação premium</p>
+                </div>
+            </div>
+            <div class="theme-toggle">
+                <button class="theme-btn" id="lightBtn">Claro</button>
+                <button class="theme-btn active" id="darkBtn">Escuro</button>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="chat-section">
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message system">Inicializando núcleo neural...</div>
+                </div>
+
+                <button class="renew-button" id="renewButton" style="display: none;" onclick="renewKey()">Inserir Nova Chave</button>
+
+                <div class="footer">
+                    Bot criado pelo trader Mateus Midas. Todos os direitos reservados.
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-section">
+                    <h3>Sessão</h3>
+                    <div class="info-content">
+                        <div>Nome: <span id="sessionName">—</span></div>
+                        <div>Acesso: <span id="sessionAccess">—</span></div>
+                        <div>Sinais: <span id="sessionSignals">—</span></div>
+                        <div id="vipStatus"></div>
+                    </div>
+                </div>
+
+                <div class="info-divider"></div>
+
+                <div class="info-section">
+                    <h3>Ativo</h3>
+                    <div class="info-content" id="activeInfo">—</div>
+                </div>
+
+                <div class="info-divider"></div>
+
+                <div class="info-section">
+                    <h3>Status</h3>
+                    <div class="info-content" id="statusInfo">Ocioso</div>
+                </div>
+
+                <div class="info-divider"></div>
+
+                <div class="info-section">
+                    <h3>Plataforma</h3>
+                    <div class="platform-badge">Stockity Otimizado</div>
+                </div>
+
+                <div class="info-divider"></div>
+
+                <div class="info-section">
+                    <h3>Fontes de Dados</h3>
+                    <div class="connection-list">
+                        <div class="connection-item">
+                            <span class="status-dot active"></span>
+                            <span>NYSE</span>
+                        </div>
+                        <div class="connection-item">
+                            <span class="status-dot active"></span>
+                            <span>NASDAQ</span>
+                        </div>
+                        <div class="connection-item">
+                            <span class="status-dot active"></span>
+                            <span>FOREX</span>
+                        </div>
+                        <div class="connection-item">
+                            <span class="status-dot active"></span>
+                            <span>LSE</span>
+                        </div>
+                        <div class="connection-item">
+                            <span class="status-dot active"></span>
+                            <span>BINANCE</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-divider"></div>
+
+                <div class="info-section">
+                    <h3>Status do Sistema</h3>
+                    <div class="system-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Tempo de atividade</span>
+                            <span class="stat-value" id="uptime">00:00:00</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Precisão</span>
+                            <span class="stat-value" id="accuracy">87%</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Latência</span>
+                            <span class="stat-value" id="latency">12ms</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
 // ==========================================
 // FRASES BASE DO TERMINAL DE NEGOCIAÇÃO
