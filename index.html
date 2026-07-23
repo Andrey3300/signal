@@ -181,10 +181,7 @@
             flex-direction: column;
             flex: 1;
             min-height: 0;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
+            height: 100%;
         }
 
         .terminal-screen.active {
@@ -276,10 +273,27 @@
             overflow: hidden;
         }
 
+        .chat-section, .info-panel {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            padding: 15px;
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        body.dark .chat-section,
+        body.dark .info-panel {
+            background: rgba(30, 41, 59, 0.6);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
         .chat-section {
+            flex: 1;
             display: flex;
             flex-direction: column;
-            flex: 1;
             min-height: 0;
             overflow: hidden;
         }
@@ -349,7 +363,6 @@
             padding: 12px;
             background: rgba(255, 255, 255, 0.5);
             backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
             border-radius: 12px;
             border: 1px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
@@ -568,11 +581,156 @@
         }
 
         @media (max-width: 968px) {
-            /* ... (Existing media queries remain unchanged) ... */
+            .main-content {
+                flex-direction: column;
+                overflow-y: auto;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+                margin-bottom: 10px;
+                padding: 10px 14px;
+            }
+
+            .logo-section {
+                flex-direction: row;
+                gap: 10px;
+            }
+
+            .chat-messages {
+                flex: 1;
+                min-height: 200px;
+            }
+
+            .login-box {
+                margin: 15px;
+                padding: 35px 25px;
+            }
+
+            .info-panel {
+                width: auto;
+                flex-direction: column;
+                gap: 0;
+                padding: 15px;
+                overflow-y: auto;
+                max-height: 50vh;
+            }
+
+            .info-section {
+                margin-bottom: 10px;
+            }
+
+            .info-divider {
+                display: block;
+            }
+
+            .footer {
+                margin-top: 6px;
+                width: 100%;
+            }
         }
 
         @media (max-width: 640px) {
-            /* ... (Existing media queries remain unchanged) ... */
+            .container {
+                padding: 6px;
+                display: flex;
+                flex-direction: column;
+                height: 100vh;
+            }
+
+            .terminal-screen {
+                display: flex;
+                flex-direction: column;
+                height: 100vh;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+                margin-bottom: 10px;
+                padding: 10px 14px;
+                flex-shrink: 0;
+            }
+
+            .logo-text h1 {
+                font-size: 18px;
+            }
+
+            .logo-text p {
+                font-size: 12px;
+            }
+
+            .logo {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+
+            .login-title {
+                font-size: 22px;
+            }
+
+            .theme-toggle {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .main-content {
+                flex-direction: column;
+                flex: 1;
+                gap: 12px;
+                overflow-y: auto;
+                padding: 0;
+            }
+
+            .chat-section {
+                flex: 0 0 auto;
+                min-height: auto;
+                margin-bottom: 0;
+                border-radius: 16px;
+                display: flex;
+                flex-direction: column;
+                height: 60vh;
+            }
+
+            .chat-messages {
+                flex: 1;
+                min-height: 0;
+                margin-bottom: 10px;
+            }
+
+            .info-panel {
+                flex: 0 0 auto;
+                width: 100%;
+                max-height: none;
+                flex-direction: column;
+                gap: 0;
+                padding: 15px;
+                overflow-y: auto;
+                border-radius: 16px;
+                margin-bottom: 20px;
+            }
+
+            .info-section {
+                margin-bottom: 10px;
+            }
+
+            .info-divider {
+                display: block;
+            }
+
+            .message.bot, .message.user {
+                max-width: 92%;
+                padding: 6px 10px;
+                font-size: 13px;
+            }
+
+            .footer {
+                margin-top: 10px;
+            }
         }
     </style>
 </head>
@@ -721,22 +879,177 @@
 const ANALYZING_PHRASES = [
     "Digitalizando todos os prazos à procura de um ponto de entrada...",
     "Analisando a liquidez do mercado em tempo real...",
-    /* ... */
+    "Verificando correlações entre os principais ativos...",
+    "Carregando dados históricos dos últimos 24 horas...",
+    "Aplicando algoritmos de aprendizagem de máquina para previsão...",
+    "Analisando volumes de negociação em grandes bolsas...",
+    "Avaliando a força da tendência atual...",
+    "Verificação cruzada de dados de 5 fontes...",
+    "Monitorando grandes ordens limitadas...",
+    "Analisando a volatilidade do mercado...",
+    "Verificando níveis de suporte e resistência...",
+    "Digitalizando padrões de análise de velas...",
+    "Carregando dados de contratos futuros...",
+    "Analisando interesse em aberto em derivativos...",
+    "Verificando indicadores macroeconômicos...",
+    "Monitorando relatórios CFTC sobre posições comerciais...",
+    "Analisando movimento de capital entre setores...",
+    "Verificando níveis de impulso RSI e MACD...",
+    "Digitalizando oportunidades de arbitragem...",
+    "Analisando o spread entre spot e futuros...",
+    "Carregando dados de taxas interbancárias...",
+    "Verificando atividade de traders institucionais...",
+    "Analisando sentimento de notícias e mercado...",
+    "Monitorando fluxos de caixa para ativos seguros...",
+    "Digitalizando níveis de breakout em todos os pares...",
+    "Analisando padrões cíclicos do mercado...",
+    "Verificando níveis de garantia de margem...",
+    "Carregando dados do calendário econômico...",
+    "Analisando correlação com índices de ações...",
+    "Monitorando atividade de market makers...",
+    "Verificando liquidez do livro de pedidos...",
+    "Analisando dinâmica do índice do dólar DXY...",
+    "Digitalizando anomalias em volumes de negociação...",
+    "Verificando níveis de stop loss de grandes jogadores...",
+    "Analisando fatores sazonais de pares de moedas...",
+    "Carregando dados de reservas internacionais...",
+    "Monitorando mudanças na política monetária...",
+    "Analisando cadeia de suprimentos e fluxos de commodities...",
+    "Verificando atividade de fundos de hedge em tempo real...",
+    "Sincronizando dados com todas as bolsas conectadas...",
 ];
 
 const REGIONAL_PHRASES = [
     {text: "A bolsa de valores de Tóquio abriu com ganhos, o iene reage à saída de capital", pairs: ['NZD/USD', 'AUD/CAD', 'GBP/NZD'], direction: 'UP'},
-    /* ... */
+    {text: "O Banco do Japão considera mudar a política de taxas negativas, o iene se fortalece", pairs: ['NZD/USD', 'CHF/DKK'], direction: 'DOWN'},
+    {text: "Grande exportador japonês coloca ordens de hedge para venda de iene", pairs: ['NZD/USD', 'AUD/CAD'], direction: 'UP'},
+    {text: "Fundo de investimento de Osaka acumula posições longas em iene", pairs: ['NZD/USD'], direction: 'DOWN'},
+    {text: "Dados de PIB do Japão superaram expectativas", pairs: ['NZD/USD', 'EUR/CAD'], direction: 'DOWN'},
+    {text: "Status seguro do iene ativado em contexto de incerteza global", pairs: ['NZD/USD', 'GBP/NZD'], direction: 'DOWN'},
+    {text: "Companhias de seguros japonesas transferem capital para o exterior, pressão sobre o iene", pairs: ['NZD/USD', 'AUD/CAD'], direction: 'UP'},
+    {text: "Intervenções do Ministério das Finanças do Japão para apoiar o iene são esperadas no mercado", pairs: ['NZD/USD'], direction: 'DOWN'},
+    {text: "Grande corporação japonesa anuncia recompra de ações, enfraquecimento do iene", pairs: ['NZD/USD', 'EUR/CAD'], direction: 'UP'},
+    {text: "Dados de saldo comercial do Japão mostram superávit recorde", pairs: ['NZD/USD', 'CHF/DKK'], direction: 'DOWN'},
+    {text: "Banco da Reserva da Austrália sinalizou aumento de taxas, dólar australiano sobe", pairs: ['AUD/CAD', 'GBP/NZD'], direction: 'DOWN'},
+    {text: "Preços de minério de ferro na China crescem, apoiando o dólar australiano", pairs: ['AUD/CAD', 'GBP/NZD'], direction: 'DOWN'},
+    {text: "Grande banco australiano NAB coloca ordens de proteção para venda", pairs: ['AUD/CAD'], direction: 'UP'},
+    {text: "Dados de emprego na Austrália superaram significativamente as previsões", pairs: ['AUD/CAD', 'GBP/NZD'], direction: 'DOWN'},
+    {text: "China reduz importações de carvão, pressão sobre o dólar australiano", pairs: ['AUD/CAD', 'GBP/NZD'], direction: 'UP'},
+    {text: "Banco da Reserva da Nova Zelândia mantém discurso duro, kiwi se fortalece", pairs: ['EUR/NZD', 'GBP/NZD'], direction: 'DOWN'},
+    {text: "Dados de leilões de laticínios da Nova Zelândia mostram aumento de preços", pairs: ['EUR/NZD', 'GBP/NZD'], direction: 'DOWN'},
+    {text: "Exportação de carnes da Nova Zelândia enfrenta barreiras comerciais", pairs: ['EUR/NZD', 'GBP/NZD'], direction: 'UP'},
+    {text: "Atividade vulcânica na região cria riscos econômicos", pairs: ['EUR/NZD', 'GBP/NZD'], direction: 'UP'},
+    {text: "Grande fundo da Nova Zelândia acumula moeda estrangeira", pairs: ['EUR/NZD', 'GBP/NZD'], direction: 'UP'},
+    {text: "Saldo comercial da Nova Zelândia melhorou graças ao turismo", pairs: ['EUR/NZD', 'GBP/NZD'], direction: 'DOWN'},
+    {text: "Sessão asiática abriu com atividade elevada", pairs: ['NZD/USD', 'AUD/CAD', 'EUR/CAD'], direction: null},
+    {text: "Bolsa de Tóquio registra grandes negociações em bloco", pairs: ['NZD/USD', 'EUR/CAD'], direction: null},
+    {text: "Mercados de ações asiáticos demonstram crescimento confiante", pairs: ['NZD/USD', 'AUD/CAD', 'EUR/NZD'], direction: null},
+    {text: "Investidores chineses saem ativamente para o mercado de moedas", pairs: ['AUD/CAD', 'EUR/NZD'], direction: null},
+    {text: "Banco Central Europeu confirmou intenção de continuar aumentando taxas", pairs: ['EUR/USD', 'EUR/CAD', 'EUR/CHF', 'EUR/JPY', 'EUR/NZD'], direction: 'UP'},
+    {text: "Inflação na zona do euro desacelerou mais rápido que o previsto, pressão sobre o euro", pairs: ['EUR/USD', 'EUR/CAD', 'EUR/CHF', 'EUR/NZD'], direction: 'DOWN'},
+    {text: "Grande montadora alemã anuncia investimentos recordes", pairs: ['EUR/USD', 'EUR/CAD', 'EUR/JPY'], direction: 'UP'},
+    {text: "Crise política na França cria incerteza para o euro", pairs: ['EUR/USD', 'EUR/CAD', 'EUR/CHF'], direction: 'DOWN'},
+    {text: "Itália coloca títulos de 10 anos com spread recordemente baixo", pairs: ['EUR/USD', 'EUR/JPY'], direction: 'UP'},
+    {text: "Comissão Europeia elevar previsão de crescimento do PIB da zona do euro", pairs: ['EUR/USD', 'EUR/CAD', 'EUR/JPY'], direction: 'UP'},
+    {text: "Instituto alemão IFO relatou queda no clima de negócios", pairs: ['EUR/USD', 'EUR/CAD', 'EUR/CHF'], direction: 'DOWN'},
+    {text: "BCE testa euro digital, mercado reage positivamente", pairs: ['EUR/USD', 'EUR/CAD', 'EUR/JPY'], direction: 'UP'},
+    {text: "Protocolos de última reunião do BCE mostram divergências no conselho", pairs: ['EUR/USD', 'EUR/CAD'], direction: 'DOWN'},
+    {text: "Euro se fortalece com afluxo de capital para ações europeias", pairs: ['EUR/USD', 'EUR/CAD', 'EUR/JPY'], direction: 'UP'},
+    {text: "Crise energética na Europa se intensifica, euro sob pressão", pairs: ['EUR/USD', 'EUR/CHF'], direction: 'DOWN'},
+    {text: "Grande banco francês BNP Paribas realiza lucros em euro", pairs: ['EUR/USD', 'EUR/JPY'], direction: 'DOWN'},
+    {text: "Produção industrial da Alemanha cresceu pelo terceiro mês consecutivo", pairs: ['EUR/USD', 'EUR/CAD', 'EUR/JPY'], direction: 'UP'},
+    {text: "Banco da Inglaterra manteve tom agressivo, libra sobe", pairs: ['GBP/NZD', 'GBP/CAD', 'GBP/JPY', 'GBP/USD'], direction: 'UP'},
+    {text: "Inflação no Reino Unido permanece acima do nível-alvo, apoiando a libra", pairs: ['GBP/NZD', 'GBP/CAD', 'GBP/JPY', 'GBP/USD'], direction: 'UP'},
+    {text: "Déficit orçamentário britânico foi mais amplo que o previsto", pairs: ['GBP/NZD', 'GBP/CAD', 'GBP/USD'], direction: 'DOWN'},
+    {text: "Grande fundo de cobertura de Londres fecha posições longas em libra", pairs: ['GBP/NZD', 'GBP/JPY', 'GBP/USD'], direction: 'DOWN'},
+    {text: "Pedidos industriais do Reino Unido mostraram crescimento inesperado", pairs: ['GBP/NZD', 'GBP/CAD', 'GBP/JPY', 'GBP/USD'], direction: 'UP'},
+    {text: "Instabilidade política no parlamento pressiona a libra", pairs: ['GBP/NZD', 'GBP/CHF', 'GBP/USD'], direction: 'DOWN'},
+    {text: "Sessão de Londres abriu com grandes compras de libra", pairs: ['GBP/NZD', 'GBP/JPY', 'GBP/USD'], direction: 'UP'},
+    {text: "Mercado imobiliário britânico mostra primeiros sinais de recuperação", pairs: ['GBP/NZD', 'GBP/CAD', 'GBP/USD'], direction: 'UP'},
+    {text: "Banco da Inglaterra sinalizou possível pausa no ciclo de aperto", pairs: ['GBP/NZD', 'GBP/JPY', 'GBP/USD'], direction: 'DOWN'},
+    {text: "Grande empresa petrolífera britânica anuncia fusão", pairs: ['GBP/NZD', 'GBP/USD'], direction: 'UP'},
+    {text: "Franco suíço se fortalece como fuga para a segurança", pairs: ['EUR/CHF', 'GBP/CHF', 'USD/CHF'], direction: 'DOWN'},
+    {text: "Banco Nacional Suíço intervém para enfraquecimento do franco", pairs: ['EUR/CHF', 'GBP/CHF', 'USD/CHF'], direction: 'UP'},
+    {text: "Exportação de relógios suíços mostra números recordes", pairs: ['EUR/CHF', 'USD/CHF'], direction: 'UP'},
+    {text: "Indústria farmacêutica suíça relata desenvolvimentos revolucionários", pairs: ['EUR/CHF', 'GBP/CHF'], direction: 'UP'},
+    {text: "Franco suíço enfraquece com apetite global por risco", pairs: ['EUR/CHF', 'GBP/CHF', 'USD/CHF'], direction: 'UP'},
+    {text: "Reestruturação do Credit Suisse continua pressionando o setor financeiro suíço", pairs: ['EUR/CHF', 'USD/CHF'], direction: 'DOWN'},
+    {text: "PIB suíço cresceu mais rápido que o previsto graças à farmácia", pairs: ['EUR/CHF', 'GBP/CHF', 'USD/CHF'], direction: 'UP'},
+    {text: "Banco Nacional Suíço manteve taxas sem mudanças", pairs: ['EUR/CHF', 'GBP/CHF', 'USD/CHF'], direction: null},
+    {text: "Afluxo de capital para títulos suíços se intensifica", pairs: ['EUR/CHF', 'USD/CHF'], direction: 'DOWN'},
+    {text: "Câmara de comércio suíça prevê desaceleração de exportações", pairs: ['EUR/CHF', 'GBP/CHF'], direction: 'DOWN'},
+    {text: "Índices de ações europeias negociam positivamente", pairs: ['EUR/USD', 'GBP/NZD', 'EUR/JPY'], direction: null},
+    {text: "Londres e Frankfurt aumentam volume simultaneamente", pairs: ['EUR/USD', 'GBP/NZD', 'EUR/CHF'], direction: null},
+    {text: "Bancos europeus passaram em testes de estresse com sucesso", pairs: ['EUR/USD', 'EUR/JPY', 'GBP/JPY'], direction: 'UP'},
+    {text: "Energia europeia se estabiliza após período de inverno", pairs: ['EUR/USD', 'EUR/CAD', 'EUR/CHF'], direction: 'UP'},
+    {text: "Grandes investidores europeus reequilibram carteiras em dólares", pairs: ['EUR/USD', 'GBP/USD'], direction: 'DOWN'},
+    {text: "Tribunal Europeu aprova novas sanções afetando comércio", pairs: ['EUR/USD', 'EUR/CAD', 'EUR/CHF'], direction: 'DOWN'},
+    {text: "Bolsa de Metais de Londres registra aumento de demanda por metais preciosos", pairs: ['GBP/NZD', 'GBP/CAD', 'GBP/JPY'], direction: 'UP'},
+    {text: "Companhias de seguros europeias aumentam investimentos no exterior", pairs: ['EUR/USD', 'EUR/JPY', 'GBP/JPY'], direction: 'DOWN'},
+    {text: "Cúpula da UE discute estímulos fiscais para a economia", pairs: ['EUR/USD', 'EUR/JPY'], direction: 'UP'},
+    {text: "Indústria automotiva europeia relatou crescimento em vendas de veículos elétricos", pairs: ['EUR/USD', 'EUR/CAD', 'EUR/JPY'], direction: 'UP'},
+    {text: "Banco Federal insinuou elevação mais agressiva de taxas", pairs: ['USD/CHF', 'GBP/USD', 'EUR/USD'], direction: 'UP'},
+    {text: "Dados de emprego nos EUA superaram significativamente as expectativas", pairs: ['USD/CHF', 'GBP/USD', 'EUR/USD'], direction: 'UP'},
+    {text: "IPC nos EUA desacelerou, pressão sobre o dólar", pairs: ['USD/CHF', 'GBP/USD', 'EUR/USD'], direction: 'DOWN'},
+    {text: "Grande banco de investimento americano Goldman Sachs coloca ordens de proteção", pairs: ['USD/CHF', 'EUR/USD'], direction: 'DOWN'},
+    {text: "Índice do dólar DXY quebrou nível de resistência chave", pairs: ['USD/CHF', 'GBP/USD', 'EUR/USD'], direction: 'UP'},
+    {text: "Banco Federal sinalizou possível suavização de política no próximo ano", pairs: ['USD/CHF', 'GBP/USD', 'EUR/USD'], direction: 'DOWN'},
+    {text: "Mercado de trabalho americano demonstra resiliência", pairs: ['USD/CHF', 'EUR/USD', 'GBP/USD'], direction: 'UP'},
+    {text: "Dados de vendas no varejo dos EUA decepcionaram", pairs: ['USD/CHF', 'EUR/USD'], direction: 'DOWN'},
+    {text: "Grande fundo de pensão americano aumenta ativos estrangeiros", pairs: ['USD/CHF', 'EUR/USD', 'GBP/USD'], direction: 'DOWN'},
+    {text: "Protocolo do FOMC mostrou unanimidade em combater inflação", pairs: ['USD/CHF', 'GBP/USD', 'EUR/USD'], direction: 'UP'},
+    {text: "PMI industrial americano subiu acima de 50 pontos", pairs: ['USD/CHF', 'EUR/USD', 'GBP/USD'], direction: 'UP'},
+    {text: "Dólar enfraquece com aumento do apetite por risco", pairs: ['USD/CHF', 'GBP/USD', 'EUR/USD'], direction: 'DOWN'},
+    {text: "Novos pedidos de seguro desemprego nos EUA caíram", pairs: ['USD/CHF', 'EUR/USD'], direction: 'UP'},
+    {text: "Dívida americana superou novo nível psicológico", pairs: ['USD/CHF', 'EUR/USD', 'GBP/USD'], direction: 'DOWN'},
+    {text: "Grandes empresas de tecnologia americana reportaram lucros", pairs: ['USD/CHF', 'EUR/USD'], direction: 'UP'},
+    {text: "Mercado de títulos dos EUA registra saída de fundos", pairs: ['USD/CHF', 'EUR/USD'], direction: 'DOWN'},
+    {text: "Banco do Canadá elevou taxa em 25 pontos base", pairs: ['GBP/CAD', 'EUR/CAD', 'USD/CAD'], direction: 'DOWN'},
+    {text: "Preços de petróleo WTI crescem, apoiando o dólar canadense", pairs: ['GBP/CAD', 'EUR/CAD', 'USD/CAD'], direction: 'DOWN'},
+    {text: "Estatísticas canadenses mostram crescimento do PIB mais forte que o previsto", pairs: ['GBP/CAD', 'EUR/CAD', 'USD/CAD'], direction: 'DOWN'},
+    {text: "Grande fundo de pensão canadense CPP Investments coloca ordens de proteção", pairs: ['GBP/CAD', 'EUR/CAD'], direction: 'UP'},
+    {text: "Mercado imobiliário canadense mostra desaceleração", pairs: ['GBP/CAD', 'EUR/CAD'], direction: 'UP'},
+    {text: "Exportação canadense de madeira enfrenta barreiras comerciais", pairs: ['GBP/CAD', 'EUR/CAD'], direction: 'UP'},
+    {text: "Preços de gás natural crescem, apoiando economia canadense", pairs: ['GBP/CAD', 'EUR/CAD', 'USD/CAD'], direction: 'DOWN'},
+    {text: "Saldo comercial canadense melhorou graças a recursos energéticos", pairs: ['GBP/CAD', 'EUR/CAD', 'USD/CAD'], direction: 'DOWN'},
+    {text: "Banco do Canadá sinalizou pausa no ciclo de aperto", pairs: ['GBP/CAD', 'EUR/CAD', 'USD/CAD'], direction: 'UP'},
+    {text: "Grande empresa de mineração canadense anuncia fusão", pairs: ['GBP/CAD', 'USD/CAD'], direction: 'DOWN'},
+    {text: "Wall Street abriu com ganhos em reportes corporativos", pairs: ['USD/CHF', 'EUR/USD', 'GBP/USD'], direction: null},
+    {text: "Mercados norte-americanos demonstram atividade elevada", pairs: ['USD/CHF', 'EUR/USD', 'GBP/USD'], direction: null},
+    {text: "Investidores americanos reequilibram carteiras ativamente", pairs: ['USD/CHF', 'EUR/USD', 'GBP/USD'], direction: null},
+    {text: "NYSE e NASDAQ registram volumes recordes de negociação", pairs: ['USD/CHF', 'EUR/USD', 'GBP/USD'], direction: null},
+    {text: "Títulos do Tesouro americano demonstram aumento de rendimento", pairs: ['USD/CHF', 'EUR/USD'], direction: 'UP'},
+    {text: "Sessão norte-americana traz volatilidade elevada", pairs: ['USD/CHF', 'EUR/USD', 'GBP/USD'], direction: null},
+    {text: "Grandes varejistas americanos relatam crescimento de vendas", pairs: ['USD/CHF', 'EUR/USD'], direction: 'UP'},
+    {text: "Setor de energia americano aumenta produção", pairs: ['GBP/CAD', 'EUR/CAD', 'USD/CAD'], direction: null},
+    {text: "Investidores fogem para o dólar em instabilidade global", pairs: ['USD/CHF', 'GBP/USD', 'EUR/USD'], direction: 'UP'},
+    {text: "Bancos centrais norte-americano e canadense coordenam política cambial", pairs: ['GBP/CAD', 'EUR/USD'], direction: null},
 ];
 
 const ENTRY_PHRASES = [
     "Ponto de entrada identificado. Formando sinal de negociação...",
-    /* ... */
+    "Momento ideal de entrada encontrado. Preparando recomendação...",
+    "Análise confirmada. Enviando sinal para execução...",
+    "Padrão confirmado. Fixando ponto de entrada...",
+    "Todos os indicadores convergem. Gerando sinal de negociação...",
+    "Zona de entrada definida com alta precisão...",
+    "Confluência de fatores aponta entrada clara...",
+    "Modelo de previsão gerou sinal forte...",
+    "Algoritmo detectou configuração altamente provável...",
+    "Condições de mercado amadurecidas para entrada em posição...",
 ];
 
 const RESULT_PHRASES = [
     "Negociação fechada. Analisando resultado...",
-    /* ... */
+    "Posição fechada. Atualizando estatísticas...",
+    "Ciclo de negociação concluído. Passando para próxima análise...",
+    "Negociação executada. Verificando precisão da previsão...",
+    "Resultado fixado. Preparando próximo sinal...",
+    "Negociação finalizada. Recalculando modelos...",
+    "Posição fechada por expiração. Atualizando dados...",
+    "Operação comercial concluída. Digitalizando novas oportunidades...",
+    "Resultado de negociação registrado. Analisando mercado adiante...",
+    "Negociação fechada. Ajustando algoritmos...",
 ];
 
 const ACCESS_KEYS = {
@@ -764,15 +1077,280 @@ var session = {
     accessEndTime: null,
     accessCheckInterval: null,
     usedPhraseIndices: [],
-    cycleCount: 0,
-    usedAccessKey: false  // NEW: Flag to track access key usage
+    cycleCount: 0
 };
 
-// ... (Existing Functions remain unchanged, except for the login handling) ...
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function random(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function addMessage(text, type) {
+    const chat = document.getElementById('chatMessages');
+    const msg = document.createElement('div');
+    msg.className = 'message ' + (type || 'bot');
+    msg.innerHTML = text;
+    chat.appendChild(msg);
+    
+    while(chat.children.length > 100) {
+        chat.removeChild(chat.firstChild);
+    }
+
+    chat.scrollTop = chat.scrollHeight;
+}
+
+function setStatus(text) {
+    document.getElementById('statusInfo').textContent = text;
+}
+
+function setActive(text) {
+    document.getElementById('activeInfo').textContent = text;
+}
+
+function updateSessionInfo() {
+    document.getElementById('sessionName').textContent = session.name;
+    var accessLabel = ACCESS_KEYS[session.accessKey] ? ACCESS_KEYS[session.accessKey].name : 'Desconhecido';
+    document.getElementById('sessionAccess').textContent = accessLabel;
+    document.getElementById('sessionSignals').textContent = session.signalsUsed;
+}
+
+function isAccessExpired() {
+    return Date.now() > session.accessEndTime;
+}
+
+function getRemainingAccessTime() {
+    var remaining = session.accessEndTime - Date.now();
+    return remaining > 0 ? remaining : 0;
+}
+
+function formatTime(ms) {
+    var totalSeconds = Math.floor(ms / 1000);
+    var hours = Math.floor(totalSeconds / 3600);
+    var minutes = Math.floor((totalSeconds % 3600) / 60);
+    var seconds = totalSeconds % 60;
+    return String(hours).padStart(2, '0') + ':' + String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0');
+}
+
+function getRandomPhrase(phrasesArray) {
+    var idx = random(0, phrasesArray.length - 1);
+    return phrasesArray[idx];
+}
+
+function getSmartRegionalPhrase() {
+    var idx = random(0, REGIONAL_PHRASES.length - 1);
+    var phrase = REGIONAL_PHRASES[idx];
+    var pair = phrase.pairs[random(0, phrase.pairs.length - 1)];
+    
+    return {
+        text: phrase.text,
+        pair: pair,
+        direction: phrase.direction
+    };
+}
+
+function updateUptime() {
+    var elapsed = Date.now() - session.startTime;
+    var hours = Math.floor(elapsed / 3600000);
+    var minutes = Math.floor((elapsed % 3600000) / 60000);
+    var seconds = Math.floor((elapsed % 60000) / 1000);
+    var formatted = String(hours).padStart(2, '0') + ':' + String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0');
+    document.getElementById('uptime').textContent = formatted;
+}
+
+function updateStats() {
+    var accuracy = Math.floor(Math.random() * (96 - 85 + 1)) + 85;
+    document.getElementById('accuracy').textContent = accuracy + '%';
+    var latency = Math.floor(Math.random() * (25 - 8 + 1)) + 8;
+    document.getElementById('latency').textContent = latency + 'ms';
+    var nextUpdate = Math.floor(Math.random() * (10000 - 2000 + 1)) + 2000;
+    setTimeout(updateStats, nextUpdate);
+}
+
+function startSystemStats() {
+    session.startTime = Date.now();
+    session.uptimeInterval = setInterval(updateUptime, 1000);
+    updateStats();
+}
+
+function updateVIPStatus() {
+    var container = document.getElementById('vipStatus');
+    var remaining = getRemainingAccessTime();
+    container.innerHTML = '<span class="status-badge vip">VIP</span><div class="vip-timer">Expira em: ' + formatTime(remaining) + '</div>';
+}
+
+function checkAccessExpiration() {
+    if (isAccessExpired()) {
+        addMessage('<strong>Seu acesso VIP expirou. Por favor, insira uma nova chave de acesso para continuar.</strong>');
+        setStatus('Acesso expirado');
+        document.getElementById('renewButton').style.display = 'block';
+        if (session.botCycleInterval) {
+            clearTimeout(session.botCycleInterval);
+        }
+        return true;
+    }
+    return false;
+}
+
+async function runBotCycle() {
+    if (checkAccessExpiration()) return;
+    if (session.isActive) return;
+
+    session.isActive = true;
+    session.cycleCount++;
+    setStatus('Analisando mercado...');
+
+    var analysisCount = random(3, 5);
+    var usedIndices = new Set();
+
+    for (var i = 0; i < analysisCount; i++) {
+        if (checkAccessExpiration()) return;
+        
+        var idx;
+        do {
+            idx = random(0, ANALYZING_PHRASES.length - 1);
+        } while (usedIndices.has(idx) && usedIndices.size < ANALYZING_PHRASES.length);
+        usedIndices.add(idx);
+
+        addMessage(ANALYZING_PHRASES[idx]);
+        setActive('Digitalizando... ' + (i + 1) + '/' + analysisCount);
+        await delay(random(2000, 4000));
+    }
+
+    if (checkAccessExpiration()) return;
+
+    var regional = getSmartRegionalPhrase();
+    addMessage(regional.text);
+    session.currentAsset = regional.pair;
+    session.currentDirection = regional.direction;
+    setActive(regional.pair + ' — analisando');
+    await delay(random(2000, 3500));
+
+    if (checkAccessExpiration()) return;
+
+    var entryPhrase = ENTRY_PHRASES[random(0, ENTRY_PHRASES.length - 1)];
+    addMessage('<strong>' + entryPhrase + '</strong>');
+    setStatus('Ponto de entrada identificado');
+    await delay(random(1500, 2500));
+
+    if (checkAccessExpiration()) return;
+
+    var direction = session.currentDirection || (Math.random() < 0.5 ? 'COMPRA' : 'VENDA');
+    var directionClass = direction === 'COMPRA' ? 'up' : 'down';
+    var dirArrow = direction === 'COMPRA' ? '&#8593;' : '&#8595;';
+
+    var timerId = 'entryTimer_' + session.cycleCount;
+    var signalHtml = '<div class="signal-info">' +
+        '<div class="signal-pair">' + session.currentAsset + '</div>' +
+        '<div style="opacity: 0.7; font-size: 14px;">Expiração: 1 minuto</div>' +
+        '<div class="signal-direction ' + directionClass + '">' + dirArrow + ' ' + direction + ' ' + dirArrow + '</div>' +
+        '<div style="font-size: 13px; opacity: 0.8; margin-top: 8px;">Janela de entrada: <strong>20 segundos</strong></div>' +
+        '<div class="timer" id="' + timerId + '">00:20</div>' +
+        '</div>';
+
+    addMessage(signalHtml, 'bot strong-signal');
+    setStatus('Sinal ativo — 20s de entrada');
+    setActive(session.currentAsset + ' — ' + direction);
+
+    await runEntryTimer(20, timerId);
+
+    if (checkAccessExpiration()) return;
+
+    addMessage('<strong>Janela de entrada fechada. Posição travada. Aguardando expiração (1 minuto)...</strong>');
+    setStatus('Posição ativa — 60s');
+    await delay(1000);
+
+    await runExpirationTimer(60);
+
+    if (checkAccessExpiration()) return;
+
+    session.signalsUsed++;
+    updateSessionInfo();
+
+    var resultPhrase = RESULT_PHRASES[random(0, RESULT_PHRASES.length - 1)];
+    addMessage(resultPhrase);
+    setStatus('Ocioso');
+    setActive('—');
+    session.isActive = false;
+    session.currentAsset = null;
+    session.currentDirection = null;
+
+    await delay(random(2000, 4000));
+
+    if (checkAccessExpiration()) return;
+
+    runBotCycle();
+}
+
+async function runEntryTimer(seconds, timerId) {
+    return new Promise(resolve => {
+        var remaining = seconds;
+        
+        var interval = setInterval(function() {
+            remaining--;
+            
+            var timerEl = document.getElementById(timerId);
+            if (timerEl) {
+                timerEl.textContent = '00:' + String(remaining).padStart(2, '0');
+                if (remaining <= 5) {
+                    timerEl.classList.add('urgent');
+                }
+            }
+            
+            setActive(session.currentAsset + ' — ENTRADA ' + remaining + 's');
+
+            if (remaining <= 0) {
+                clearInterval(interval);
+                resolve();
+            }
+        }, 1000);
+    });
+}
+
+async function runExpirationTimer(seconds) {
+    return new Promise(resolve => {
+        var remaining = seconds;
+        
+        var interval = setInterval(function() {
+            remaining--;
+            setActive(session.currentAsset + ' — expira em ' + remaining + 's');
+
+            if (remaining <= 0) {
+                clearInterval(interval);
+                resolve();
+            }
+        }, 1000);
+    });
+}
+
+async function initializeChat() {
+    await delay(1500);
+    addMessage('Bem-vindo, <strong>' + session.name + '</strong>. Sou o bot de negociação premium do Mateus Midas.');
+    await delay(2000);
+    
+    addMessage('Acesso VIP ativado. Você tem sinais ilimitados de negociação durante sua sessão.');
+    await delay(1500);
+    
+    addMessage('Iniciando digitalização autônoma do mercado. Vou analisar continuamente o mercado e fornecer sinais de negociação.');
+    await delay(2000);
+    addMessage('Cada sinal inclui: par de moedas, direção (COMPRA/VENDA) e uma janela de entrada de 20 segundos. Após entrada, a negociação expira em 1 minuto.');
+    await delay(1500);
+    addMessage('<strong>Iniciando análise...</strong>');
+    await delay(1000);
+
+    startSystemStats();
+    
+    session.accessCheckInterval = setInterval(updateVIPStatus, 1000);
+    updateVIPStatus();
+
+    runBotCycle();
+}
 
 function handleLogin(e) {
     if (e) e.preventDefault();
-
+    
     var keyInput = document.getElementById('accessKey');
     var nameInput = document.getElementById('userName');
     var errorDiv = document.getElementById('errorMessage');
@@ -786,7 +1364,7 @@ function handleLogin(e) {
     errorDiv.style.display = 'none';
     successDiv.style.display = 'none';
 
-    if (ACCESS_KEYS[key] && !session.usedAccessKey) {  // Check access key validity AND if it's already been used
+    if (ACCESS_KEYS[key]) {
         session.accessKey = key;
         session.name = name;
         session.limit = ACCESS_KEYS[key].limit;
@@ -802,22 +1380,55 @@ function handleLogin(e) {
         document.getElementById('terminalScreen').classList.add('active');
         updateSessionInfo();
         initializeChat();
-        session.usedAccessKey = true; // Mark the access key as used
     } else {
-        errorDiv.textContent = 'Chave de acesso inválida ou já utilizada.';
+        errorDiv.textContent = 'Chave de acesso inválida.';
         errorDiv.style.display = 'block';
     }
 }
 
 function renewKey() {
-    // Clear local storage to force re-login
-    localStorage.removeItem('aura_vip_key');
-    localStorage.removeItem('aura_vip_start');
-    localStorage.removeItem('aura_vip_end');
-    session.usedAccessKey = false;
     location.reload();
 }
-// ... (Existing code remains unchanged) ...
-</script>
+
+window.addEventListener('load', function() {
+    var loginBtn = document.querySelector('.login-button');
+    var form = document.getElementById('loginForm');
+
+    loginBtn.addEventListener('click', handleLogin);
+    form.addEventListener('submit', handleLogin);
+
+    document.getElementById('lightBtn').addEventListener('click', function() {
+        document.body.className = 'light';
+        document.getElementById('lightBtn').classList.add('active');
+        document.getElementById('darkBtn').classList.remove('active');
+    });
+
+    document.getElementById('darkBtn').addEventListener('click', function() {
+        document.body.className = 'dark';
+        document.getElementById('darkBtn').classList.add('active');
+        document.getElementById('lightBtn').classList.remove('active');
+    });
+
+    var storedKey = localStorage.getItem('aura_vip_key');
+    var storedEnd = parseInt(localStorage.getItem('aura_vip_end') || '0');
+    
+    if (storedKey && Date.now() < storedEnd) {
+        session.accessKey = storedKey;
+        session.accessEndTime = storedEnd;
+        session.isVIP = true;
+        session.limit = ACCESS_KEYS[storedKey].limit;
+        session.signalsUsed = 0;
+        
+        var nameInput = document.getElementById('userName');
+        nameInput.value = 'Trader';
+        session.name = 'Trader';
+        
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('terminalScreen').classList.add('active');
+        updateSessionInfo();
+        initializeChat();
+    }
+});
+    </script>
 </body>
 </html>
